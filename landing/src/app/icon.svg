@@ -1,0 +1,9 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gantry site icon: rounded black tile + white logomark (symbol only) -->
+  <rect width="100" height="100" rx="24" fill="#0B0F14"/>
+  <g fill="#FFFFFF" transform="translate(50 50) scale(0.372) translate(-360 -268)">
+    <polygon points="330,200 346,190 346,346 330,346"/>
+    <polygon points="418,229 434,219 434,346 418,346"/>
+    <polygon points="286,313 434,219 434,239 286,332"/>
+  </g>
+</svg>
