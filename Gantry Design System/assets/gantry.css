@@ -1,0 +1,280 @@
+/* ============================================================
+   GANTRY — Design Tokens & Base System
+   Invisible infrastructure for AI
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---- Color: surfaces ---- */
+  --bg-0:        #0B0F14;   /* primary background */
+  --bg-1:        #1A1F26;   /* secondary surface / cards */
+  --bg-2:        #21272F;   /* elevated surface / rows */
+  --bg-3:        #2A313A;   /* hover / pressed */
+  --bg-inset:    #070A0E;   /* wells, code blocks */
+
+  /* ---- Color: accent (use ONLY for good/active/data) ---- */
+  --accent:      #00E599;
+  --accent-600:  #00C985;   /* hover */
+  --accent-700:  #00A06B;   /* pressed */
+  --accent-soft: rgba(0, 229, 153, 0.12);
+  --accent-line: rgba(0, 229, 153, 0.28);
+  --accent-ink:  #06231A;   /* text on accent fill */
+
+  /* ---- Color: text ---- */
+  --text-0:      #FFFFFF;                       /* primary */
+  --text-1:      rgba(255, 255, 255, 0.78);     /* secondary body */
+  --text-2:      rgba(255, 255, 255, 0.56);     /* tertiary */
+  --text-3:      rgba(255, 255, 255, 0.38);     /* quaternary / labels */
+  --text-4:      rgba(255, 255, 255, 0.24);     /* disabled / faint */
+
+  /* ---- Color: borders ---- */
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-focus:  rgba(0, 229, 153, 0.55);
+
+  /* ---- Color: status (green is reserved for good) ---- */
+  --ok:          #00E599;
+  --ok-soft:     rgba(0, 229, 153, 0.12);
+  --warning:     #F5B544;
+  --warning-soft:rgba(245, 181, 68, 0.12);
+  --error:       #FF5C5C;
+  --error-soft:  rgba(255, 92, 92, 0.12);
+  --info:        #5B9DFF;
+  --info-soft:   rgba(91, 157, 255, 0.12);
+
+  /* ---- Spacing (4px base) ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-7: 28px; --sp-8: 32px;
+  --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
+
+  /* ---- Radius (Blueprint: sharp / drafting-table) ---- */
+  --r-1: 2px; --r-2: 2px; --r-3: 3px; --r-pill: 999px;
+
+  /* ---- Hairline (structural rule weight) ---- */
+  --hair: rgba(255, 255, 255, 0.09);
+  --bracket: rgba(255, 255, 255, 0.42);
+
+  /* ---- Type scale ---- */
+  --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px;
+  --t-20: 20px; --t-24: 24px; --t-32: 32px; --t-44: 44px;
+
+  /* ---- Fonts ---- */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Shadows (subtle, dark-on-dark) ---- */
+  --sh-1: 0 1px 2px rgba(0,0,0,0.4);
+  --sh-2: 0 4px 12px rgba(0,0,0,0.45);
+  --sh-3: 0 12px 32px rgba(0,0,0,0.55);
+  --sh-pop: 0 16px 48px rgba(0,0,0,0.6);
+  --glow-accent: 0 0 0 1px var(--accent-line), 0 8px 28px rgba(0,229,153,0.18);
+
+  /* ---- Z layers ---- */
+  --z-base: 0; --z-sticky: 100; --z-nav: 200; --z-dropdown: 300;
+  --z-overlay: 400; --z-modal: 500; --z-toast: 600;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 180ms;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg-0);
+  color: var(--text-0);
+  font-family: var(--font-sans);
+  font-size: var(--t-14);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--accent-soft); color: var(--accent); }
+
+/* ---- Scrollbars ---- */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+*::-webkit-scrollbar-thumb:hover { background: #3a424d; background-clip: padding-box; border: 2px solid transparent; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* ============================================================
+   Logo mark
+   ============================================================ */
+.gy-mark { display: inline-flex; }
+.gy-mark svg { display: block; }
+
+/* ============================================================
+   Typography helpers
+   ============================================================ */
+.mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1, "zero" 1; }
+.tnum { font-variant-numeric: tabular-nums; }
+.eyebrow {
+  font-size: var(--t-12); font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-3);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  font-family: var(--font-sans); font-size: var(--t-14); font-weight: 600;
+  line-height: 1; padding: 0 var(--sp-4); height: 36px;
+  border-radius: var(--r-2); border: 1px solid transparent;
+  cursor: pointer; white-space: nowrap; user-select: none;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.btn:active { transform: translateY(0.5px); }
+.btn svg { width: 16px; height: 16px; }
+
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--accent-600); box-shadow: 0 4px 16px rgba(0,229,153,0.22); }
+.btn-primary:active { background: var(--accent-700); }
+
+.btn-secondary { background: transparent; color: var(--text-0); border-color: var(--border-strong); }
+.btn-secondary:hover { background: var(--bg-2); border-color: var(--text-3); }
+
+.btn-ghost { background: transparent; color: var(--text-1); }
+.btn-ghost:hover { background: var(--bg-2); color: var(--text-0); }
+
+.btn-sm { height: 30px; font-size: var(--t-13); padding: 0 var(--sp-3); border-radius: var(--r-1); }
+.btn-lg { height: 44px; font-size: var(--t-16); padding: 0 var(--sp-6); }
+.btn-block { width: 100%; }
+.btn:disabled, .btn[disabled] { opacity: 0.4; pointer-events: none; }
+
+/* ============================================================
+   Inputs
+   ============================================================ */
+.field-label { display: block; font-size: var(--t-13); font-weight: 500; color: var(--text-1); margin-bottom: var(--sp-2); }
+.input, .select {
+  width: 100%; height: 38px; padding: 0 var(--sp-3);
+  background: var(--bg-inset); color: var(--text-0);
+  border: 1px solid var(--border-strong); border-radius: var(--r-2);
+  font-family: var(--font-sans); font-size: var(--t-14); outline: none;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.input::placeholder { color: var(--text-3); }
+.input:focus, .select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input.mono { font-family: var(--font-mono); font-size: var(--t-13); }
+
+/* ============================================================
+   Badges / pills
+   ============================================================ */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 22px; padding: 0 var(--sp-2); border-radius: var(--r-1);
+  font-size: var(--t-12); font-weight: 600; letter-spacing: 0.01em;
+  border: 1px solid transparent; white-space: nowrap;
+}
+.badge .dot { width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+.badge-ok      { background: var(--ok-soft);      color: var(--ok);      border-color: var(--accent-line); }
+.badge-savings { background: var(--ok-soft);      color: var(--ok);      border-color: var(--accent-line); }
+.badge-warning { background: var(--warning-soft); color: var(--warning); border-color: rgba(245,181,68,0.28); }
+.badge-error   { background: var(--error-soft);   color: var(--error);   border-color: rgba(255,92,92,0.28); }
+.badge-neutral { background: var(--bg-2);         color: var(--text-2);  border-color: var(--border); }
+
+/* delta chips */
+.delta { font-family: var(--font-mono); font-size: var(--t-13); font-weight: 600; }
+.delta-up   { color: var(--accent); }   /* good: cost down OR savings up — context set per use */
+.delta-down { color: var(--error); }
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.card {
+  background: var(--bg-1); border: 1px solid var(--border);
+  border-radius: var(--r-3);
+}
+.card-pad { padding: var(--sp-6); }
+
+.stat-card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--sp-5); }
+.stat-label { font-size: var(--t-13); color: var(--text-2); margin: 0 0 var(--sp-3); }
+.stat-value { font-size: var(--t-32); font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 0; }
+.stat-foot { display: flex; align-items: center; gap: var(--sp-2); margin-top: var(--sp-3); font-size: var(--t-13); color: var(--text-2); }
+
+/* ============================================================
+   Data table
+   ============================================================ */
+.table { width: 100%; border-collapse: collapse; }
+.table thead th {
+  text-align: left; font-size: var(--t-12); font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3);
+  padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border);
+  background: var(--bg-1); position: sticky; top: 0;
+}
+.table tbody td {
+  padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border);
+  font-size: var(--t-14); color: var(--text-1);
+}
+.table tbody tr { transition: background var(--dur) var(--ease); }
+.table tbody tr:hover { background: var(--bg-2); }
+.table tbody tr:last-child td { border-bottom: none; }
+.table .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--text-0); }
+.table .t-name { color: var(--text-0); font-weight: 500; }
+
+/* ============================================================
+   Tabs
+   ============================================================ */
+.tabs { display: inline-flex; gap: 2px; background: var(--bg-inset); padding: 3px; border-radius: var(--r-2); border: 1px solid var(--border); }
+.tab {
+  padding: 6px var(--sp-3); border-radius: var(--r-1); font-size: var(--t-13);
+  font-weight: 500; color: var(--text-2); cursor: pointer; border: none; background: transparent;
+  transition: all var(--dur) var(--ease);
+}
+.tab:hover { color: var(--text-0); }
+.tab.active { background: var(--bg-2); color: var(--text-0); box-shadow: var(--sh-1); }
+
+/* underline tabs */
+.tabs-line { display: flex; gap: var(--sp-5); border-bottom: 1px solid var(--border); }
+.tab-line { padding: var(--sp-3) 0; font-size: var(--t-14); font-weight: 500; color: var(--text-2); cursor: pointer; border: none; background: transparent; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all var(--dur) var(--ease); }
+.tab-line:hover { color: var(--text-0); }
+.tab-line.active { color: var(--text-0); border-bottom-color: var(--accent); }
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+.divider { height: 1px; background: var(--border); border: 0; margin: 0; }
+.row { display: flex; align-items: center; }
+.gap-1 { gap: var(--sp-1); } .gap-2 { gap: var(--sp-2); } .gap-3 { gap: var(--sp-3); }
+.gap-4 { gap: var(--sp-4); } .gap-6 { gap: var(--sp-6); }
+.spread { justify-content: space-between; }
+
+/* ============================================================
+   Blueprint / Instrument layer
+   ============================================================ */
+.h-display { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.01em; }
+
+/* mono coordinate / section label */
+.coord {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3);
+}
+.coord-accent { color: var(--accent); }
+
+/* mono nav-group label */
+.gy-grouplabel {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
+}
+
+/* corner-bracket frame — wrap content, drop 4 <span class="gy-c tl/tr/bl/br"> */
+.gy-frame { position: relative; }
+.gy-c { position: absolute; width: 7px; height: 7px; border: 0 solid var(--bracket); pointer-events: none; z-index: 1; }
+.gy-c.tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.gy-c.tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+.gy-c.bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+.gy-c.br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+
+/* measured ruler bar */
+.gy-ruler { position: relative; height: 14px; }
+.gy-ticks { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; display: flex; justify-content: space-between; }
+.gy-ticks i { width: 1px; height: 5px; background: rgba(255,255,255,0.16); }
+.gy-ticks i:nth-child(5n+1) { height: 10px; background: rgba(255,255,255,0.30); }
+
+/* hairline-framed panel (sharp, structural) */
+.panel { background: var(--bg-1); border: 1px solid var(--hair); border-radius: var(--r-3); position: relative; }
+.panel-flat { background: transparent; border: 1px solid var(--hair); }

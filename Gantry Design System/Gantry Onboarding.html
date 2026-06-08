@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gantry — Onboarding</title>
+<link rel="stylesheet" href="assets/gantry.css">
+<style>
+  html, body { height: 100%; }
+  #root { min-height: 100vh; }
+  .ob { display: grid; grid-template-columns: 440px 1fr; min-height: 100vh; }
+
+  /* ---- left brand rail ---- */
+  .ob-rail { position: relative; background: var(--bg-0); border-right: 1px solid var(--border); padding: 40px; display: flex; flex-direction: column; overflow: hidden; }
+  .ob-rail::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px); background-size: 44px 44px; opacity: 0.5; pointer-events: none; -webkit-mask-image: linear-gradient(135deg, #000, transparent 70%); mask-image: linear-gradient(135deg, #000, transparent 70%); }
+  .ob-brand { display: flex; align-items: center; gap: 12px; position: relative; }
+  .ob-tile { width: 36px; height: 36px; border-radius: 5px; background: #15191F; display: grid; place-items: center; border: 1px solid var(--border); }
+  .ob-wm { font-weight: 700; letter-spacing: 0.26em; font-size: 16px; }
+  .ob-rail h2 { font-family: var(--font-display); font-size: 30px; font-weight: 600; letter-spacing: 0.005em; line-height: 1.12; margin: auto 0 16px; max-width: 320px; position: relative; }
+  .ob-rail p { color: var(--text-2); font-size: 15px; max-width: 320px; margin: 0 0 28px; position: relative; }
+  .ob-steps { display: flex; flex-direction: column; gap: 2px; position: relative; }
+  .ob-step { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--r-2); color: var(--text-3); font-size: 14px; transition: all .2s; }
+  .ob-step.active { background: var(--bg-1); color: var(--text-0); }
+  .ob-step.done { color: var(--text-1); }
+  .ob-num { width: 24px; height: 24px; border-radius: var(--r-1); border: 1px solid var(--border-strong); display: grid; place-items: center; font-size: 12px; font-family: var(--font-mono); flex: none; transition: all .2s; }
+  .ob-step.active .ob-num { border-color: var(--accent); color: var(--accent); }
+  .ob-step.done .ob-num { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+  /* ---- right panel ---- */
+  .ob-main { display: grid; place-items: center; padding: 48px; }
+  .ob-card { width: 100%; max-width: 480px; }
+  .ob-eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.06em; }
+  .ob-h1 { font-family: var(--font-display); font-size: 26px; font-weight: 600; letter-spacing: 0.005em; margin: 10px 0 8px; }
+  .ob-lead { color: var(--text-2); font-size: 15px; margin: 0 0 28px; line-height: 1.5; }
+
+  .gh-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; background: #fff; color: #0B0F14; border: none; border-radius: var(--r-2); font-weight: 600; font-size: 15px; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .gh-btn:hover { box-shadow: 0 8px 24px rgba(255,255,255,0.12); }
+  .gh-btn:active { transform: translateY(1px); }
+  .gh-btn.loading { background: var(--bg-2); color: var(--text-2); pointer-events: none; }
+
+  .ob-or { display: flex; align-items: center; gap: 14px; margin: 20px 0; color: var(--text-3); font-size: 12px; }
+  .ob-or::before, .ob-or::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .ob-alt { display: flex; gap: 10px; }
+  .ob-alt button { flex: 1; height: 42px; }
+  .ob-terms { font-size: 12px; color: var(--text-3); text-align: center; margin-top: 22px; line-height: 1.5; }
+  .ob-terms a { color: var(--text-1); text-decoration: none; }
+
+  .code-field { display: flex; align-items: center; gap: 10px; background: var(--bg-inset); border: 1px solid var(--border-strong); border-radius: var(--r-2); padding: 0 8px 0 12px; height: 42px; }
+  .code-field input { flex: 1; background: none; border: none; outline: none; color: var(--text-0); font-family: var(--font-mono); font-size: 13px; min-width: 0; }
+  .copy-btn { height: 30px; padding: 0 12px; }
+
+  .snippet { background: var(--bg-inset); border: 1px solid var(--border); border-radius: var(--r-3); overflow: hidden; margin-top: 8px; }
+  .snip-head { display: flex; align-items: center; gap: 4px; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .snip-tab { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); padding: 5px 10px; border-radius: var(--r-1); cursor: pointer; border: none; background: none; }
+  .snip-tab.active { background: var(--bg-2); color: var(--text-0); }
+  .snip-copy { margin-left: auto; }
+  .snippet pre { margin: 0; padding: 16px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.65; color: var(--text-1); overflow-x: auto; }
+  .snippet .k { color: #C792EA; } .snippet .s { color: var(--accent); } .snippet .c { color: var(--text-3); } .snippet .fn { color: #82AAFF; }
+
+  /* waiting state */
+  .wait-box { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-3); padding: 28px; text-align: center; transition: border-color .4s; }
+  .wait-box.received { border-color: var(--accent-line); }
+  .pulse { width: 56px; height: 56px; border-radius: 999px; margin: 0 auto 18px; display: grid; place-items: center; position: relative; }
+  .pulse-ring { position: absolute; inset: 0; border-radius: 999px; border: 2px solid var(--accent); opacity: 0; animation: ring 1.8s ease-out infinite; }
+  .pulse-ring:nth-child(2){ animation-delay: .6s; } .pulse-ring:nth-child(3){ animation-delay: 1.2s; }
+  @keyframes ring { 0% { transform: scale(0.5); opacity: 0.7; } 100% { transform: scale(1.8); opacity: 0; } }
+  .pulse-core { width: 14px; height: 14px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 16px rgba(0,229,153,0.8); }
+  .check-core { width: 56px; height: 56px; border-radius: 999px; background: var(--accent-soft); border: 1px solid var(--accent-line); display: grid; place-items: center; margin: 0 auto 18px; color: var(--accent); animation: pop .4s cubic-bezier(0.22,1.2,0.36,1) both; }
+  @keyframes pop { from { transform: scale(0.6); } to { transform: scale(1); } }
+
+  .log { background: var(--bg-inset); border: 1px solid var(--border); border-radius: var(--r-2); padding: 12px 14px; text-align: left; font-family: var(--font-mono); font-size: 12px; line-height: 1.8; margin-top: 18px; min-height: 92px; }
+  .log .t { color: var(--text-3); } .log .ok { color: var(--accent); } .log .w { color: var(--text-1); }
+  .event-card { display: flex; gap: 12px; text-align: left; background: var(--bg-inset); border: 1px solid var(--border); border-radius: var(--r-2); padding: 14px; margin-top: 18px; }
+  .ev-k { color: var(--text-3); font-size: 12px; } .ev-v { color: var(--text-0); font-family: var(--font-mono); font-size: 12px; }
+
+  .ob-card { opacity: 1; }
+  .fade { animation: fade .4s var(--ease) both; }
+  @keyframes fade { from { transform: translateY(6px); } to { transform: none; } }
+
+  @media (max-width: 880px) { .ob { grid-template-columns: 1fr; } .ob-rail { display: none; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+function Mark({ size = 22, accent = false }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" style={{ display: 'block' }}>
+      <path d="M14 5 V43 M14 30 L34 13" stroke="#fff" strokeWidth="3.4" strokeLinecap="square"/>
+      <path d="M34 13 V43" stroke={accent ? '#00E599' : '#fff'} strokeWidth="3.4" strokeLinecap="square"/>
+    </svg>
+  );
+}
+const GitHubIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+);
+const Check = (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" {...p}><path d="M20 6 9 17l-5-5"/></svg>;
+const Copy = (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...p}><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>;
+
+const DSN = 'gy_live_8f2c4a91b6d3e057fa12c89b';
+const STEPS = [
+  { t: 'Sign in', d: 'Connect GitHub' },
+  { t: 'Create project', d: 'Get your DSN key' },
+  { t: 'First event', d: 'Verify the install' },
+];
+
+function CopyBtn({ text, label = 'Copy' }) {
+  const [done, setDone] = useState(false);
+  return (
+    <button className="btn btn-secondary copy-btn" onClick={() => { navigator.clipboard?.writeText(text); setDone(true); setTimeout(() => setDone(false), 1400); }}>
+      {done ? <Check width={14} height={14} style={{ color: 'var(--accent)' }} /> : <Copy width={14} height={14} />}{done ? 'Copied' : label}
+    </button>
+  );
+}
+
+/* ---------- Screen 1 ---------- */
+function SignIn({ next }) {
+  const [loading, setLoading] = useState(false);
+  return (
+    <div className="ob-card fade">
+      <div className="ob-eyebrow">STEP 01</div>
+      <h1 className="ob-h1">Welcome to Gantry</h1>
+      <p className="ob-lead">Observability and cost optimization for LLMs in production. Connect your GitHub to spin up your first project in under a minute.</p>
+      <button className={'gh-btn' + (loading ? ' loading' : '')} onClick={() => { setLoading(true); setTimeout(next, 1100); }}>
+        {loading ? <>Authorizing…</> : <><GitHubIcon /> Continue with GitHub</>}
+      </button>
+      <div className="ob-or">or</div>
+      <div className="ob-alt">
+        <button className="btn btn-secondary">SSO</button>
+        <button className="btn btn-secondary">Email</button>
+      </div>
+      <p className="ob-terms">By continuing you agree to Gantry’s <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. We request read-only repo metadata — never your source.</p>
+    </div>
+  );
+}
+
+/* ---------- Screen 2 ---------- */
+function CreateProject({ next }) {
+  const [lang, setLang] = useState('ts');
+  const snippets = {
+    ts: <pre><span className="c">// 1 · install</span>{'\n'}npm install @gantry/sdk{'\n\n'}<span className="c">// 2 · wrap your LLM client</span>{'\n'}<span className="k">import</span> {'{ Gantry }'} <span className="k">from</span> <span className="s">'@gantry/sdk'</span>;{'\n\n'}<span className="k">const</span> gantry = <span className="k">new</span> <span className="fn">Gantry</span>({'{'}{'\n'}  dsn: <span className="s">'{DSN}'</span>,{'\n'}{'}'});{'\n\n'}<span className="k">const</span> openai = gantry.<span className="fn">wrap</span>(<span className="k">new</span> <span className="fn">OpenAI</span>());</pre>,
+    py: <pre><span className="c"># 1 · install</span>{'\n'}pip install gantry-sdk{'\n\n'}<span className="c"># 2 · wrap your LLM client</span>{'\n'}<span className="k">from</span> gantry <span className="k">import</span> Gantry{'\n\n'}gantry = <span className="fn">Gantry</span>(dsn=<span className="s">"{DSN}"</span>){'\n'}openai = gantry.<span className="fn">wrap</span>(<span className="fn">OpenAI</span>())</pre>,
+  };
+  return (
+    <div className="ob-card fade">
+      <div className="ob-eyebrow">STEP 02</div>
+      <h1 className="ob-h1">Project created</h1>
+      <p className="ob-lead"><span className="mono" style={{ color: 'var(--text-0)' }}>payments-api</span> is live. Drop your DSN into the SDK to start streaming events.</p>
+
+      <label className="field-label">DSN key</label>
+      <div className="code-field" style={{ marginBottom: 22 }}>
+        <span style={{ color: 'var(--text-3)', fontFamily: 'var(--font-mono)', fontSize: 13 }}>›</span>
+        <input value={DSN} readOnly />
+        <CopyBtn text={DSN} />
+      </div>
+
+      <label className="field-label">Install</label>
+      <div className="snippet">
+        <div className="snip-head">
+          <button className={'snip-tab' + (lang === 'ts' ? ' active' : '')} onClick={() => setLang('ts')}>TypeScript</button>
+          <button className={'snip-tab' + (lang === 'py' ? ' active' : '')} onClick={() => setLang('py')}>Python</button>
+          <div className="snip-copy"><CopyBtn text={lang === 'ts' ? 'npm install @gantry/sdk' : 'pip install gantry-sdk'} /></div>
+        </div>
+        {snippets[lang]}
+      </div>
+
+      <button className="btn btn-primary btn-lg btn-block" style={{ marginTop: 24 }} onClick={next}>I’ve added the SDK →</button>
+    </div>
+  );
+}
+
+/* ---------- Screen 3 ---------- */
+function FirstEvent() {
+  const [received, setReceived] = useState(false);
+  const [logs, setLogs] = useState([]);
+  const timers = useRef([]);
+
+  const startListen = () => {
+    setReceived(false);
+    setLogs([]);
+    timers.current.forEach(clearTimeout);
+    const seq = [
+      [400,  ['t', '12:04:22', 'Listening on dsn gy_live_8f2c…c89b']],
+      [1400, ['t', '12:04:25', 'Handshake OK · region us-east-1']],
+      [2600, ['w', '12:04:31', 'Awaiting first traced request…']],
+    ];
+    seq.forEach(([d, l]) => timers.current.push(setTimeout(() => setLogs((x) => [...x, l]), d)));
+    timers.current.push(setTimeout(() => {
+      setLogs((x) => [...x, ['ok', '12:04:38', 'event received · summarization · GPT-4o']]);
+      setReceived(true);
+    }, 4000));
+  };
+
+  useEffect(() => { startListen(); return () => timers.current.forEach(clearTimeout); }, []);
+
+  return (
+    <div className="ob-card fade">
+      <div className="ob-eyebrow">STEP 03</div>
+      <h1 className="ob-h1">{received ? 'First event received' : 'Waiting for your first event'}</h1>
+      <p className="ob-lead">{received ? 'Gantry is now tracing payments-api. Your data is live.' : 'Send a request through your wrapped client. We’ll detect it automatically.'}</p>
+
+      <div className={'wait-box' + (received ? ' received' : '')}>
+        {received ? (
+          <div className="check-core fade"><Check width={26} height={26} /></div>
+        ) : (
+          <div className="pulse">
+            <span className="pulse-ring" /><span className="pulse-ring" /><span className="pulse-ring" />
+            <span className="pulse-core" />
+          </div>
+        )}
+        <div style={{ fontWeight: 600, fontSize: 15 }}>{received ? 'Connection verified' : 'payments-api · listening'}</div>
+        <div style={{ color: 'var(--text-2)', fontSize: 13, marginTop: 4 }}>{received ? '1 event in the last few seconds' : 'production · us-east-1'}</div>
+
+        {received ? (
+          <div className="event-card fade">
+            <div className="ob-tile" style={{ width: 34, height: 34, borderRadius: 8 }}><span className="badge badge-ok" style={{ height: 18, padding: '0 5px' }}>✓</span></div>
+            <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 16px' }}>
+              <div><div className="ev-k">feature</div><div className="ev-v">summarization</div></div>
+              <div><div className="ev-k">model</div><div className="ev-v">GPT-4o</div></div>
+              <div><div className="ev-k">tokens</div><div className="ev-v">1,284</div></div>
+              <div><div className="ev-k">latency</div><div className="ev-v">912ms</div></div>
+            </div>
+          </div>
+        ) : (
+          <div className="log">
+            {logs.map((l, i) => <div key={i}><span className="t">{l[1]}</span> <span className={l[0] === 'ok' ? 'ok' : 'w'}>{l[2]}</span></div>)}
+            {!received && <span style={{ color: 'var(--accent)' }}>▌</span>}
+          </div>
+        )}
+      </div>
+
+      {received
+        ? <a className="btn btn-primary btn-lg btn-block" href="Gantry Dashboard.html" style={{ marginTop: 24, textDecoration: 'none' }}>Open dashboard →</a>
+        : <button className="btn btn-secondary btn-block" style={{ marginTop: 16, height: 42 }} onClick={() => { timers.current.forEach(clearTimeout); setLogs((x) => [...x, ['ok', '12:04:38', 'event received · summarization · GPT-4o']]); setReceived(true); }}>Simulate a test event</button>}
+    </div>
+  );
+}
+
+function App() {
+  const [step, setStep] = useState(0);
+  const screens = [<SignIn key="a" next={() => setStep(1)} />, <CreateProject key="b" next={() => setStep(2)} />, <FirstEvent key="c" />];
+  return (
+    <div className="ob">
+      <div className="ob-rail">
+        <div className="ob-brand">
+          <div className="ob-tile"><Mark size={22} accent /></div>
+          <span className="ob-wm">GANTRY</span>
+        </div>
+        <h2>Invisible infrastructure for AI.</h2>
+        <p>Three steps from zero to your first traced LLM call. No agents, no sidecars — one SDK wrap.</p>
+        <div className="ob-steps">
+          {STEPS.map((s, i) => (
+            <div key={i} className={'ob-step' + (i === step ? ' active' : i < step ? ' done' : '')}>
+              <span className="ob-num">{i < step ? <Check width={13} height={13} /> : i + 1}</span>
+              <div><div style={{ fontWeight: 500 }}>{s.t}</div><div style={{ fontSize: 12, color: 'var(--text-3)', whiteSpace: 'nowrap' }}>{s.d}</div></div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 'auto', fontSize: 12, color: 'var(--text-3)', position: 'relative' }}>
+          {step > 0 && <button className="btn btn-ghost btn-sm" style={{ paddingLeft: 0 }} onClick={() => setStep((s) => Math.max(0, s - 1))}>← Back</button>}
+        </div>
+      </div>
+      <div className="ob-main">{screens[step]}</div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gantry — Invisible infrastructure for AI</title>
+<link rel="stylesheet" href="assets/gantry.css">
+<link rel="stylesheet" href="assets/landing.css">
+</head>
+<body class="lp">
+
+<!-- ============ NAV ============ -->
+<nav class="lp-nav">
+  <div class="lp-nav-in">
+    <div class="lp-brand">
+      <div class="lp-tile"><svg width="20" height="20" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M14 30 L34 13" stroke="#fff" stroke-width="3.4" stroke-linecap="square"/><path d="M34 13 V43" stroke="#00E599" stroke-width="3.4" stroke-linecap="square"/></svg></div>
+      <span class="lp-wm">GANTRY</span>
+    </div>
+    <div class="lp-navlinks">
+      <a href="#product">Product</a>
+      <a href="#integrate">Integrate</a>
+      <a href="#advisor">Model Advisor</a>
+      <a href="Gantry Design System.html">Design system</a>
+      <a href="#">Docs</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="lp-nav-right">
+      <a class="lp-gh" href="#"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg> <span class="star">★</span> 4.2k</a>
+      <a class="btn btn-ghost btn-sm" href="Gantry Onboarding.html">Sign in</a>
+      <a class="btn btn-primary btn-sm" href="Gantry Onboarding.html">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="lp-hero">
+  <div class="lp-grid"></div>
+  <div class="lp-wrap lp-hero-in">
+    <div>
+      <span class="lp-eyebrow"><span class="pip"></span>LLM cost observability · v1.0 is live</span>
+      <h1 class="lp-h1">Ship LLM features.<br>See every <span class="lp-accent">token</span><br>and <span class="lp-accent">dollar</span> <span class="dim">— instantly.</span></h1>
+      <p class="lp-sub">Gantry is invisible infrastructure for AI. Wrap your model client in one line and get real-time cost, token, and latency observability — plus a Model Advisor that routes traffic to cheaper models without losing quality.</p>
+      <div class="lp-cta-row">
+        <a class="btn btn-primary btn-lg" href="Gantry Onboarding.html">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+          Start with GitHub
+        </a>
+        <a class="btn btn-secondary btn-lg" href="#">Read the docs</a>
+      </div>
+      <div class="lp-install">
+        <span class="dollar">$</span>
+        <span class="pkg">npm install <b>@gantry/sdk</b></span>
+        <button class="lp-copy" data-copy="npm install @gantry/sdk" aria-label="Copy">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- code editor -->
+    <div class="lp-editor lp-rise">
+      <div class="lp-editor-bar">
+        <div class="lp-tabs2">
+          <button class="lp-tab2 active" data-lang="ts">TypeScript</button>
+          <button class="lp-tab2" data-lang="py">Python</button>
+        </div>
+        <span class="lp-editor-file" id="lp-file">app/llm.ts</span>
+      </div>
+      <pre class="lp-code" id="lp-codeblock"><code><span class="c">// wrap your existing client — one line</span>
+<span class="k">import</span> { <span class="fn">Gantry</span> } <span class="k">from</span> <span class="s">'@gantry/sdk'</span>;
+<span class="k">import</span> <span class="fn">OpenAI</span> <span class="k">from</span> <span class="s">'openai'</span>;
+
+<span class="k">const</span> gantry = <span class="k">new</span> <span class="fn">Gantry</span>({ dsn: <span class="s">'gy_live_8f2c…c89b'</span> });
+
+<span class="c">// every call is now traced — cost, tokens, latency</span>
+<span class="k">const</span> openai = gantry.<span class="fn">wrap</span>(<span class="k">new</span> <span class="fn">OpenAI</span>());
+
+<span class="k">await</span> openai.chat.completions.<span class="fn">create</span>({
+  model: <span class="s">'gpt-4o'</span>,
+  messages,
+  <span class="p">gantry</span>: { feature: <span class="s">'summarization'</span> },
+});</code></pre>
+      <div class="lp-code-out">
+        <span class="ok">● traced</span>
+        <span class="meta">summarization · gpt-4o · 1,284 tok · $0.019 · 912ms</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ LIVE PRODUCT ============ -->
+<section class="lp-product" id="product">
+  <div class="lp-browser lp-rise">
+    <div class="lp-browser-bar">
+      <div class="lp-dots"><i></i><i></i><i></i></div>
+      <div class="lp-url"><span class="lock">⬢</span> app.gantry.dev/payments-api/overview</div>
+    </div>
+    <div class="lp-frame-clip">
+      <iframe src="Gantry Dashboard.html" title="Gantry dashboard" scrolling="no" loading="lazy"></iframe>
+      <a class="lp-frame-veil" href="Gantry Dashboard.html" aria-label="Open live dashboard"></a>
+      <div class="lp-frame-cta"><span class="btn btn-primary btn-sm">Open the live dashboard →</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGOS ============ -->
+<div class="lp-logos">
+  <div class="lp-wrap">
+    <div class="lp-logos-lab">Teams shipping LLM features in production trust Gantry</div>
+    <div class="lp-logos-row">
+      <span class="lp-logo"><span class="gl"></span>Northwind</span>
+      <span class="lp-logo"><span class="gl round"></span>Cohere Labs</span>
+      <span class="lp-logo"><span class="gl diag"></span>Quanta</span>
+      <span class="lp-logo"><span class="gl"></span>Replicate IO</span>
+      <span class="lp-logo"><span class="gl round"></span>Helix</span>
+      <span class="lp-logo"><span class="gl diag"></span>Vector</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FEATURES ============ -->
+<section class="lp-sec">
+  <div class="lp-wrap">
+    <div class="lp-marker"><span class="ix">// 01</span><span class="lab">Built for the people who ship</span><span class="line"></span></div>
+    <h2 class="lp-h2">Data density is a feature,<br>not a problem.</h2>
+    <p class="lp-lead">Every surface is engineered like an instrument — precise, scannable, and fast. No dashboards that hide the number you came for.</p>
+
+    <div class="lp-features lp-rise">
+      <div class="lp-feat">
+        <span class="lp-feat-ix">01</span>
+        <div class="lp-feat-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+        <h3>Real-time cost tracing</h3>
+        <p>Cost, tokens, and latency for every request — broken down by model, feature tag, and environment. p95s that update as traffic flows.</p>
+        <div class="lp-feat-foot">$0.019 / call · live</div>
+      </div>
+      <div class="lp-feat is-accent">
+        <span class="lp-feat-ix">02</span>
+        <div class="lp-feat-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>Model Advisor</h3>
+        <p>Replays your traffic against cheaper models and shows the savings — with eval scores so quality never silently drops. One click to route.</p>
+        <div class="lp-feat-foot acc">−$10,700 / mo · recommended</div>
+      </div>
+      <div class="lp-feat">
+        <span class="lp-feat-ix">03</span>
+        <div class="lp-feat-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.5 21a1.7 1.7 0 0 1-3 0"/></svg></div>
+        <h3>Spike &amp; budget alerts</h3>
+        <p>Get paged the moment spend jumps or a budget crosses threshold. Plain, scannable emails with the data inline — not a wall of charts.</p>
+        <div class="lp-feat-foot">+31% in 1h → notified</div>
+      </div>
+      <div class="lp-feat">
+        <span class="lp-feat-ix">04</span>
+        <div class="lp-feat-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5z"/><path d="M2 13l10 5 10-5"/></svg></div>
+        <h3>Per-feature attribution</h3>
+        <p>Tag any call with a feature and see spend by surface — summarization, chat, extraction. Find the line item before finance does.</p>
+        <div class="lp-feat-foot">5 features · 1 tag</div>
+      </div>
+      <div class="lp-feat">
+        <span class="lp-feat-ix">05</span>
+        <div class="lp-feat-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"/></svg></div>
+        <h3>SDK-native, zero infra</h3>
+        <p>No agents, no sidecars, no proxy to operate. One wrap around your existing client and events stream in under a minute.</p>
+        <div class="lp-feat-foot">npm install · done</div>
+      </div>
+      <div class="lp-feat">
+        <span class="lp-feat-ix">06</span>
+        <div class="lp-feat-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg></div>
+        <h3>Every provider, one view</h3>
+        <p>OpenAI, Anthropic, Google, Mistral, and any OpenAI-compatible endpoint — normalized into a single ledger you can actually read.</p>
+        <div class="lp-feat-foot">4 vendors · 1 ledger</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="lp-rule">
+
+<!-- ============ INTEGRATE ============ -->
+<section class="lp-sec" id="integrate">
+  <div class="lp-wrap lp-split">
+    <div>
+      <div class="lp-marker"><span class="ix">// 02</span><span class="lab">Integrate</span><span class="line"></span></div>
+      <h2 class="lp-h2">From <span class="lp-accent">zero</span> to first event in 60 seconds.</h2>
+      <p class="lp-lead">No migration, no rewrite. Gantry sits between your code and the model — passively, in one wrap.</p>
+      <div class="lp-steps">
+        <div class="lp-step"><span class="lp-step-n">01</span><div><h4>Install the SDK</h4><p><span class="mono">npm install @gantry/sdk</span> — or pip, for Python.</p></div></div>
+        <div class="lp-step"><span class="lp-step-n">02</span><div><h4>Wrap your client</h4><p>One line. Your existing OpenAI / Anthropic / Gemini client keeps working.</p></div></div>
+        <div class="lp-step"><span class="lp-step-n">03</span><div><h4>Tag features (optional)</h4><p>Add <span class="mono">gantry: { feature }</span> to attribute spend per surface.</p></div></div>
+        <div class="lp-step"><span class="lp-step-n">04</span><div><h4>Watch it flow</h4><p>The first event lands in the dashboard in seconds. That's it.</p></div></div>
+      </div>
+    </div>
+
+    <div class="lp-editor lp-rise">
+      <div class="lp-editor-bar">
+        <div class="lp-tabs2">
+          <button class="lp-tab2 active" data-lang2="ts">openai</button>
+          <button class="lp-tab2" data-lang2="anthropic">anthropic</button>
+          <button class="lp-tab2" data-lang2="stream">streaming</button>
+        </div>
+        <span class="lp-editor-file" id="lp-file2">trace.ts</span>
+      </div>
+      <pre class="lp-code" id="lp-codeblock2"><code><span class="c">// drop-in: gantry.wrap() returns the same client</span>
+<span class="k">const</span> openai = gantry.<span class="fn">wrap</span>(<span class="k">new</span> <span class="fn">OpenAI</span>());
+
+<span class="k">const</span> res = <span class="k">await</span> openai.chat.completions.<span class="fn">create</span>({
+  model: <span class="s">'gpt-4o'</span>,
+  messages: [{ role: <span class="s">'user'</span>, content: prompt }],
+  <span class="p">gantry</span>: {
+    feature: <span class="s">'summarization'</span>,
+    user: <span class="v">user.id</span>,
+  },
+});
+
+<span class="c">// → traced automatically. nothing else to do.</span></code></pre>
+      <div class="lp-code-out">
+        <span class="ok">● 200 OK</span>
+        <span class="meta">event_id evt_9f2a1c · summarization · $0.019</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="lp-rule">
+
+<!-- ============ MODEL ADVISOR ============ -->
+<section class="lp-sec" id="advisor">
+  <div class="lp-wrap">
+    <div class="lp-marker"><span class="ix">// 03</span><span class="lab">Model Advisor</span><span class="line"></span></div>
+    <div class="lp-advisor gy-frame lp-rise">
+      <span class="gy-c tl" style="border-color:var(--accent-line)"></span><span class="gy-c tr" style="border-color:var(--accent-line)"></span><span class="gy-c bl" style="border-color:var(--accent-line)"></span><span class="gy-c br" style="border-color:var(--accent-line)"></span>
+      <div>
+        <div class="coord coord-accent">// EST. MONTHLY SAVINGS · classification</div>
+        <div class="lp-adv-save" data-count="10700" data-prefix="$">$10,700</div>
+        <div class="mono" style="font-size:13px;color:var(--text-2);margin-bottom:18px;"><span style="color:var(--accent)">−73%</span> · $128,400/yr · 88.1% eval vs 89.0%</div>
+        <p style="font-size:15px;color:var(--text-1);line-height:1.55;max-width:340px;margin:0 0 22px;">Gantry replays your last 30 days of traffic against every viable model and surfaces the cheapest one that holds quality. Route in one click — new requests only.</p>
+        <a class="btn btn-primary" href="Gantry Dashboard.html">Route classification → Mistral Large 2</a>
+      </div>
+      <div>
+        <div class="coord" style="margin-bottom:18px;">Monthly cost · 3 candidates</div>
+        <div class="lp-bar">
+          <div class="nm">GPT-4o<small>current</small></div>
+          <div class="track"><i style="width:100%;background:rgba(255,255,255,0.45)"></i></div>
+          <div class="ct">$14.6K</div>
+        </div>
+        <div class="lp-bar">
+          <div class="nm">Mistral Large 2<small class="rec">recommended</small></div>
+          <div class="track"><i style="width:27%;background:var(--accent)"></i></div>
+          <div class="ct" style="color:var(--accent)">$3.9K</div>
+        </div>
+        <div class="lp-bar">
+          <div class="nm">GPT-4o mini<small>fallback</small></div>
+          <div class="track"><i style="width:14%;background:rgba(255,255,255,0.22)"></i></div>
+          <div class="ct">$2.1K</div>
+        </div>
+        <div class="mono" style="font-size:11px;color:var(--text-3);margin-top:18px;line-height:1.6;">// REPLAY OF LAST 30D TRAFFIC × PUBLISHED PRICING × GANTRY EVAL SUITE.<br>// ROUTING AFFECTS NEW REQUESTS ONLY.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="lp-rule">
+
+<!-- ============ STATS ============ -->
+<section class="lp-sec" style="padding:72px 0;">
+  <div class="lp-wrap">
+    <div class="lp-stats lp-rise">
+      <div class="lp-stat"><div class="v">1.9<span style="font-size:24px">B</span></div><div class="k">Tokens traced / month</div></div>
+      <div class="lp-stat"><div class="v acc" data-count="34" data-suffix="%">34%</div><div class="k">Median spend cut via Advisor</div></div>
+      <div class="lp-stat"><div class="v">842<span style="font-size:22px">ms</span></div><div class="k">Added p95 overhead: ~0</div></div>
+      <div class="lp-stat"><div class="v">60<span style="font-size:22px">s</span></div><div class="k">Install to first event</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="lp-final">
+  <div class="lp-grid"></div>
+  <div class="lp-wrap lp-final-in">
+    <div class="lp-tile" style="width:46px;height:46px;margin:0 auto 26px;border-radius:var(--r-2);"><svg width="28" height="28" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M14 30 L34 13" stroke="#fff" stroke-width="3.4" stroke-linecap="square"/><path d="M34 13 V43" stroke="#00E599" stroke-width="3.4" stroke-linecap="square"/></svg></div>
+    <h2>Open Gantry at 11pm.<br>See your data immediately.</h2>
+    <p>Invisible infrastructure for AI. Free to start, no card required — your first event is 60 seconds away.</p>
+    <div class="row gap-3" style="justify-content:center;">
+      <a class="btn btn-primary btn-lg" href="Gantry Onboarding.html">Start with GitHub</a>
+      <a class="btn btn-secondary btn-lg" href="Gantry Dashboard.html">Explore the dashboard</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="lp-footer">
+  <div class="lp-wrap">
+    <div class="lp-foot-grid">
+      <div class="lp-foot-col">
+        <div class="lp-brand"><div class="lp-tile"><svg width="20" height="20" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M14 30 L34 13" stroke="#fff" stroke-width="3.4" stroke-linecap="square"/><path d="M34 13 V43" stroke="#00E599" stroke-width="3.4" stroke-linecap="square"/></svg></div><span class="lp-wm">GANTRY</span></div>
+        <p class="lp-foot-blurb">Invisible infrastructure for AI. Cost, token, and latency observability for production LLMs.</p>
+      </div>
+      <div class="lp-foot-col"><h5>Product</h5><a href="Gantry Dashboard.html">Dashboard</a><a href="#advisor">Model Advisor</a><a href="Gantry Alert Emails.html">Alerts</a><a href="#">Budgets</a><a href="#">Pricing</a></div>
+      <div class="lp-foot-col"><h5>Developers</h5><a href="Gantry Onboarding.html">Quickstart</a><a href="#">Docs</a><a href="#">SDK reference</a><a href="#">Changelog</a><a href="#">Status</a></div>
+      <div class="lp-foot-col"><h5>Resources</h5><a href="Gantry Design System.html">Design system</a><a href="Gantry Hub.html">Brand</a><a href="#">Blog</a><a href="#">Security</a></div>
+      <div class="lp-foot-col"><h5>Company</h5><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a><a href="#">Terms</a><a href="#">Privacy</a></div>
+    </div>
+    <div class="lp-foot-base">
+      <span>© 2026 Gantry, Inc. · Built for people who ship LLM apps.</span>
+      <span class="lp-foot-status"><span class="pip"></span>All systems operational</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  document.body.classList.add('js');
+
+  /* ---- copy buttons ---- */
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      navigator.clipboard && navigator.clipboard.writeText(b.getAttribute('data-copy'));
+      var old = b.innerHTML;
+      b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00E599" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>';
+      setTimeout(function () { b.innerHTML = old; }, 1300);
+    });
+  });
+
+  /* ---- hero code tabs ---- */
+  var codeTS = document.getElementById('lp-codeblock').innerHTML;
+  var codePY = '<code><span class="c"># wrap your existing client — one line</span>\n<span class="k">from</span> gantry <span class="k">import</span> Gantry\n<span class="k">from</span> openai <span class="k">import</span> OpenAI\n\ngantry = <span class="fn">Gantry</span>(dsn=<span class="s">\'gy_live_8f2c…c89b\'</span>)\n\n<span class="c"># every call is now traced — cost, tokens, latency</span>\nopenai = gantry.<span class="fn">wrap</span>(<span class="fn">OpenAI</span>())\n\nopenai.chat.completions.<span class="fn">create</span>(\n  model=<span class="s">\'gpt-4o\'</span>,\n  messages=messages,\n  <span class="p">gantry</span>={<span class="s">\'feature\'</span>: <span class="s">\'summarization\'</span>},\n)</code>';
+  document.querySelectorAll('.lp-tab2[data-lang]').forEach(function (t) {
+    t.addEventListener('click', function () {
+      document.querySelectorAll('.lp-tab2[data-lang]').forEach(function (x) { x.classList.remove('active'); });
+      t.classList.add('active');
+      var ts = t.getAttribute('data-lang') === 'ts';
+      document.getElementById('lp-codeblock').innerHTML = ts ? codeTS : codePY;
+      document.getElementById('lp-file').textContent = ts ? 'app/llm.ts' : 'app/llm.py';
+    });
+  });
+
+  /* ---- integrate code tabs ---- */
+  var snippets = {
+    ts: { file: 'trace.ts', html: document.getElementById('lp-codeblock2').innerHTML },
+    anthropic: { file: 'trace.ts', html: '<code><span class="c">// same wrap, any provider</span>\n<span class="k">const</span> anthropic = gantry.<span class="fn">wrap</span>(<span class="k">new</span> <span class="fn">Anthropic</span>());\n\n<span class="k">const</span> msg = <span class="k">await</span> anthropic.messages.<span class="fn">create</span>({\n  model: <span class="s">\'claude-3-5-sonnet\'</span>,\n  max_tokens: <span class="v">1024</span>,\n  messages,\n  <span class="p">gantry</span>: { feature: <span class="s">\'chat-support\'</span> },\n});</code>' },
+    stream: { file: 'stream.ts', html: '<code><span class="c">// streaming is traced too — tokens counted live</span>\n<span class="k">const</span> stream = <span class="k">await</span> openai.chat.completions.<span class="fn">create</span>({\n  model: <span class="s">\'gpt-4o\'</span>,\n  messages,\n  stream: <span class="k">true</span>,\n  <span class="p">gantry</span>: { feature: <span class="s">\'chat-support\'</span> },\n});\n\n<span class="k">for</span> <span class="k">await</span> (<span class="k">const</span> chunk <span class="k">of</span> stream) {\n  process.stdout.<span class="fn">write</span>(chunk.choices[<span class="v">0</span>]?.delta?.content ?? <span class="s">\'\'</span>);\n}</code>' },
+  };
+  document.querySelectorAll('.lp-tab2[data-lang2]').forEach(function (t) {
+    t.addEventListener('click', function () {
+      document.querySelectorAll('.lp-tab2[data-lang2]').forEach(function (x) { x.classList.remove('active'); });
+      t.classList.add('active');
+      var s = snippets[t.getAttribute('data-lang2')];
+      document.getElementById('lp-codeblock2').innerHTML = s.html;
+      document.getElementById('lp-file2').textContent = s.file;
+    });
+  });
+
+  /* ---- reveal on scroll ---- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.lp-rise').forEach(function (el) { io.observe(el); });
+
+  /* ---- count up ---- */
+  function countUp(el) {
+    var target = parseFloat(el.getAttribute('data-count'));
+    var prefix = el.getAttribute('data-prefix') || '';
+    var suffix = el.getAttribute('data-suffix') || '';
+    var dur = 1100, start = performance.now();
+    function tick(now) {
+      var p = Math.min(1, (now - start) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = Math.round(target * eased);
+      el.textContent = prefix + val.toLocaleString('en-US') + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var io2 = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); io2.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(function (el) { io2.observe(el); });
+</script>
+</body>
+</html>

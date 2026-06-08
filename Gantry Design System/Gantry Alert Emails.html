@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gantry — Alert Emails</title>
+<link rel="stylesheet" href="assets/gantry.css">
+<style>
+  body { background: #06090D; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+  .viewer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .vh-left { display: flex; align-items: center; gap: 12px; }
+  .vh-tile { width: 30px; height: 30px; border-radius: 8px; background: #15191F; display: grid; place-items: center; border: 1px solid var(--border); }
+  .switcher { display: inline-flex; gap: 2px; background: var(--bg-inset); padding: 3px; border-radius: 6px; border: 1px solid var(--border); }
+  .switcher button { padding: 7px 14px; border-radius: 4px; font-size: 13px; font-weight: 500; color: var(--text-2); cursor: pointer; border: none; background: transparent; }
+  .switcher button.active { background: var(--bg-2); color: #fff; box-shadow: var(--sh-1); }
+
+  /* email client chrome */
+  .client { background: var(--bg-0); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--sh-3); }
+  .client-bar { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .cb-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .cb-from { width: 30px; height: 30px; border-radius: 999px; background: #15191F; display: grid; place-items: center; flex: none; border: 1px solid var(--border); }
+  .cb-subject { font-weight: 600; font-size: 15px; color: #fff; margin-bottom: 2px; }
+  .cb-meta { color: var(--text-3); font-size: 12px; }
+  .client-body { padding: 28px; display: flex; justify-content: center; }
+  .note { font-size: 12px; color: var(--text-3); margin-top: 18px; text-align: center; line-height: 1.6; }
+  .note code { font-family: var(--font-mono); color: var(--text-2); }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="viewer-head">
+    <div class="vh-left">
+      <div class="vh-tile">
+        <svg width="20" height="20" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M14 30 L34 13" stroke="#fff" stroke-width="3.4" stroke-linecap="square"/><path d="M34 13 V43" stroke="#00E599" stroke-width="3.4" stroke-linecap="square"/></svg>
+      </div>
+      <div>
+        <div style="font-weight:700;letter-spacing:0.04em;">Alert email templates</div>
+        <div style="font-size:12px;color:var(--text-3);">Table-based · dark · email-safe</div>
+      </div>
+    </div>
+    <div class="switcher">
+      <button id="btn-spike" class="active" onclick="show('spike')">Spike alert</button>
+      <button id="btn-budget" onclick="show('budget')">Budget alert</button>
+    </div>
+  </div>
+
+  <!-- ============ SPIKE ============ -->
+  <div id="email-spike">
+    <div class="client">
+      <div class="client-bar">
+        <div class="cb-row">
+          <div class="cb-from"><svg width="17" height="17" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M14 30 L34 13" stroke="#fff" stroke-width="3.6" stroke-linecap="square"/><path d="M34 13 V43" stroke="#00E599" stroke-width="3.6" stroke-linecap="square"/></svg></div>
+          <div style="flex:1;">
+            <div class="cb-subject">🔴 Cost spike · payments-api · +31% in 1h</div>
+            <div class="cb-meta">Gantry Alerts &lt;alerts@gantry.dev&gt; · to you · 14m ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="client-body">
+        <!-- EMAIL TEMPLATE (table-based, inline styles) -->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#0B0F14;border:1px solid rgba(255,255,255,0.08);border-radius:10px;font-family:Inter,Helvetica,Arial,sans-serif;">
+          <tr><td style="padding:24px 28px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+              <td style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:rgba(255,255,255,0.38);">GANTRY · ALERT</td>
+              <td align="right" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#FF5C5C;">● SPIKE</td>
+            </tr></table>
+          </td></tr>
+          <tr><td style="padding:18px 28px 0;">
+            <div style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.01em;font-family:'Space Grotesk',Inter,sans-serif;">Cost spike detected</div>
+            <div style="font-size:14px;color:rgba(255,255,255,0.56);margin-top:6px;line-height:1.5;">GPT-4o spend on <span style="font-family:'JetBrains Mono',monospace;color:#fff;">payments-api</span> is running <span style="color:#FF5C5C;font-weight:600;">31% above</span> its 7-day baseline.</div>
+          </td></tr>
+
+          <!-- big delta -->
+          <tr><td style="padding:22px 28px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#070A0E;border:1px solid rgba(255,255,255,0.08);border-radius:8px;">
+              <tr>
+                <td style="padding:16px 18px;border-right:1px solid rgba(255,255,255,0.08);">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.38);font-family:'JetBrains Mono',monospace;">CURRENT RATE</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#fff;font-weight:600;margin-top:6px;">$412/hr</div>
+                </td>
+                <td style="padding:16px 18px;border-right:1px solid rgba(255,255,255,0.08);">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.38);font-family:'JetBrains Mono',monospace;">BASELINE</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:rgba(255,255,255,0.7);font-weight:600;margin-top:6px;">$314/hr</div>
+                </td>
+                <td style="padding:16px 18px;">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.38);font-family:'JetBrains Mono',monospace;">DELTA</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#FF5C5C;font-weight:600;margin-top:6px;">▲ 31%</div>
+                </td>
+              </tr>
+            </table>
+          </td></tr>
+
+          <!-- table-based bar chart (email safe) -->
+          <tr><td style="padding:18px 28px 0;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.38);font-family:'JetBrains Mono',monospace;margin-bottom:10px;">SPEND / HOUR · LAST 12H</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr style="vertical-align:bottom;">
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:22px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:26px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:20px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:28px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:24px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:30px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:27px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:32px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,255,255,0.22);height:30px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,92,92,0.5);height:44px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:rgba(255,92,92,0.7);height:54px;border-radius:2px;"></div></td>
+              <td style="padding:0 2px;"><div style="background:#FF5C5C;height:64px;border-radius:2px;"></div></td>
+            </tr></table>
+          </td></tr>
+
+          <!-- detail rows -->
+          <tr><td style="padding:22px 28px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-family:'JetBrains Mono',monospace;font-size:13px;">
+              <tr><td style="padding:7px 0;color:rgba(255,255,255,0.38);border-bottom:1px solid rgba(255,255,255,0.06);">model</td><td align="right" style="padding:7px 0;color:#fff;border-bottom:1px solid rgba(255,255,255,0.06);">GPT-4o</td></tr>
+              <tr><td style="padding:7px 0;color:rgba(255,255,255,0.38);border-bottom:1px solid rgba(255,255,255,0.06);">feature</td><td align="right" style="padding:7px 0;color:#fff;border-bottom:1px solid rgba(255,255,255,0.06);">summarization</td></tr>
+              <tr><td style="padding:7px 0;color:rgba(255,255,255,0.38);border-bottom:1px solid rgba(255,255,255,0.06);">window</td><td align="right" style="padding:7px 0;color:#fff;border-bottom:1px solid rgba(255,255,255,0.06);">13:00 – 14:00 UTC</td></tr>
+              <tr><td style="padding:7px 0;color:rgba(255,255,255,0.38);">est. monthly impact</td><td align="right" style="padding:7px 0;color:#FF5C5C;">+$71,400</td></tr>
+            </table>
+          </td></tr>
+
+          <!-- CTA -->
+          <tr><td style="padding:24px 28px 4px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>
+              <td>
+                <a href="#" style="display:block;background:#00E599;color:#06231A;text-decoration:none;text-align:center;font-weight:600;font-size:14px;padding:13px 0;border-radius:6px;">Investigate in Gantry →</a>
+              </td>
+            </tr></table>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.38);text-align:center;margin-top:12px;">Model Advisor: route summarization → Claude 3.5 Haiku to save ~$18,600/mo</div>
+          </td></tr>
+
+          <!-- footer -->
+          <tr><td style="padding:22px 28px 24px;border-top:1px solid rgba(255,255,255,0.08);margin-top:8px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+              <td style="font-size:11px;color:rgba(255,255,255,0.24);font-family:'JetBrains Mono',monospace;">alert_id 9f2a1c · payments-api</td>
+              <td align="right" style="font-size:11px;"><a href="#" style="color:rgba(255,255,255,0.56);text-decoration:none;">Manage alerts</a></td>
+            </tr></table>
+          </td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="note">Plain, scannable, table-based markup with inline styles. Renders dark in clients that support it; data stays legible in <code>JetBrains&nbsp;Mono</code> with a system-mono fallback.</p>
+  </div>
+
+  <!-- ============ BUDGET ============ -->
+  <div id="email-budget" class="hidden">
+    <div class="client">
+      <div class="client-bar">
+        <div class="cb-row">
+          <div class="cb-from"><svg width="17" height="17" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M14 30 L34 13" stroke="#fff" stroke-width="3.6" stroke-linecap="square"/><path d="M34 13 V43" stroke="#00E599" stroke-width="3.6" stroke-linecap="square"/></svg></div>
+          <div style="flex:1;">
+            <div class="cb-subject">🟡 Budget at 82% · support-copilot</div>
+            <div class="cb-meta">Gantry Alerts &lt;alerts@gantry.dev&gt; · to you · 1h ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="client-body">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#0B0F14;border:1px solid rgba(255,255,255,0.08);border-radius:10px;font-family:Inter,Helvetica,Arial,sans-serif;">
+          <tr><td style="padding:24px 28px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+              <td style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:rgba(255,255,255,0.38);">GANTRY · ALERT</td>
+              <td align="right" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#F5B544;">● BUDGET</td>
+            </tr></table>
+          </td></tr>
+          <tr><td style="padding:18px 28px 0;">
+            <div style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.01em;font-family:'Space Grotesk',Inter,sans-serif;">Budget threshold reached</div>
+            <div style="font-size:14px;color:rgba(255,255,255,0.56);margin-top:6px;line-height:1.5;"><span style="font-family:'JetBrains Mono',monospace;color:#fff;">support-copilot</span> has used <span style="color:#F5B544;font-weight:600;">82%</span> of its $40,000 monthly budget with 9 days remaining.</div>
+          </td></tr>
+
+          <!-- progress -->
+          <tr><td style="padding:22px 28px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-family:'JetBrains Mono',monospace;">
+              <tr><td style="font-size:13px;color:#fff;">$32,800</td><td align="right" style="font-size:13px;color:rgba(255,255,255,0.38);">of $40,000</td></tr>
+            </table>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;background:rgba(255,255,255,0.07);border-radius:999px;"><tr>
+              <td style="width:82%;"><div style="background:#F5B544;height:8px;border-radius:999px;"></div></td>
+              <td style="width:18%;"></td>
+            </tr></table>
+            <div style="font-size:12px;color:rgba(255,255,255,0.38);font-family:'JetBrains Mono',monospace;margin-top:8px;">projected end of month: <span style="color:#F5B544;">$44,200</span> · over by $4,200</div>
+          </td></tr>
+
+          <tr><td style="padding:22px 28px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-family:'JetBrains Mono',monospace;font-size:13px;">
+              <tr><td style="padding:7px 0;color:rgba(255,255,255,0.38);border-bottom:1px solid rgba(255,255,255,0.06);">top model</td><td align="right" style="padding:7px 0;color:#fff;border-bottom:1px solid rgba(255,255,255,0.06);">Claude 3.5 Sonnet · $24.2K</td></tr>
+              <tr><td style="padding:7px 0;color:rgba(255,255,255,0.38);border-bottom:1px solid rgba(255,255,255,0.06);">run rate</td><td align="right" style="padding:7px 0;color:#fff;border-bottom:1px solid rgba(255,255,255,0.06);">$1,266/day</td></tr>
+              <tr><td style="padding:7px 0;color:rgba(255,255,255,0.38);">days remaining</td><td align="right" style="padding:7px 0;color:#fff;">9</td></tr>
+            </table>
+          </td></tr>
+
+          <tr><td style="padding:24px 28px 4px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>
+              <td style="padding-right:6px;width:50%;"><a href="#" style="display:block;background:#00E599;color:#06231A;text-decoration:none;text-align:center;font-weight:600;font-size:14px;padding:13px 0;border-radius:6px;">View usage →</a></td>
+              <td style="padding-left:6px;width:50%;"><a href="#" style="display:block;background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.14);text-decoration:none;text-align:center;font-weight:600;font-size:14px;padding:12px 0;border-radius:6px;">Raise budget</a></td>
+            </tr></table>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.38);text-align:center;margin-top:12px;">Model Advisor: route chat-support → GPT-4o mini to save ~$24,400/mo</div>
+          </td></tr>
+
+          <tr><td style="padding:22px 28px 24px;border-top:1px solid rgba(255,255,255,0.08);">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+              <td style="font-size:11px;color:rgba(255,255,255,0.24);font-family:'JetBrains Mono',monospace;">alert_id 4c81e0 · support-copilot</td>
+              <td align="right" style="font-size:11px;"><a href="#" style="color:rgba(255,255,255,0.56);text-decoration:none;">Manage alerts</a></td>
+            </tr></table>
+          </td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="note">Budget variant reuses the same shell — amber accent instead of red, green reserved for the action. The Model Advisor nudge appears in both because savings are always the resolution.</p>
+  </div>
+
+</div>
+
+<script>
+  function show(which) {
+    document.getElementById('email-spike').classList.toggle('hidden', which !== 'spike');
+    document.getElementById('email-budget').classList.toggle('hidden', which !== 'budget');
+    document.getElementById('btn-spike').classList.toggle('active', which === 'spike');
+    document.getElementById('btn-budget').classList.toggle('active', which === 'budget');
+  }
+</script>
+</body>
+</html>

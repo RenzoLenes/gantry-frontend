@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gantry — Brand &amp; Product System</title>
+<link rel="stylesheet" href="assets/gantry.css">
+<style>
+  body { background: var(--bg-0); }
+  .hub { max-width: 1080px; margin: 0 auto; padding: 64px 32px 96px; }
+  .hub-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 72px; }
+  .brandrow { display: flex; align-items: center; gap: 14px; }
+  .tile { width: 40px; height: 40px; border-radius: 10px; background: #15191F; display: grid; place-items: center; border: 1px solid var(--border); }
+  .wm { font-weight: 700; letter-spacing: 0.26em; font-size: 18px; }
+
+  .hero h1 { font-family: var(--font-display); font-size: 64px; font-weight: 600; letter-spacing: 0.005em; line-height: 1.02; margin: 0 0 22px; max-width: 760px; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p { font-size: 19px; color: var(--text-1); max-width: 540px; margin: 0; line-height: 1.5; }
+  .hero-meta { display: flex; gap: 28px; margin-top: 36px; flex-wrap: wrap; }
+  .hm { display: flex; flex-direction: column; gap: 4px; }
+  .hm .k { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); letter-spacing: 0.04em; }
+  .hm .v { font-size: 14px; color: var(--text-1); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 72px; }
+  .deliv {
+    position: relative; display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 220px; padding: 26px; border-radius: 12px; text-decoration: none; color: var(--text-0);
+    background: var(--bg-1); border: 1px solid var(--border); overflow: hidden;
+    transition: border-color .2s var(--ease), transform .2s var(--ease), background .2s var(--ease);
+  }
+  .deliv:hover { border-color: var(--border-strong); transform: translateY(-2px); background: #1d232b; }
+  .deliv.feature { grid-column: span 2; min-height: 200px; flex-direction: row; align-items: stretch; background: linear-gradient(110deg, #141A1F, var(--bg-1)); border-color: var(--accent-line); }
+  .deliv.feature:hover { border-color: var(--accent); }
+  .dv-glow { position: absolute; top: -100px; right: -60px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(0,229,153,0.14), transparent 66%); pointer-events: none; }
+
+  .dv-idx { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+  .dv-ic { width: 38px; height: 38px; border-radius: 9px; background: var(--bg-2); border: 1px solid var(--border); display: grid; place-items: center; color: var(--text-1); }
+  .deliv.feature .dv-ic { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent); }
+  .dv-title { font-size: 21px; font-weight: 600; letter-spacing: 0.01em; margin: 16px 0 6px; color: var(--text-0); font-family: var(--font-display); }
+  .deliv.feature .dv-title { font-size: 26px; }
+  .dv-desc { font-size: 14px; color: var(--text-2); line-height: 1.5; max-width: 340px; }
+  .dv-go { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; font-size: 13px; font-weight: 600; color: var(--text-1); }
+  .deliv:hover .dv-go { color: var(--accent); }
+  .deliv.feature .dv-go { color: var(--accent); }
+
+  .dv-head { display: flex; align-items: flex-start; justify-content: space-between; }
+  .feature-left { flex: 1; display: flex; flex-direction: column; }
+  .feature-right { flex: none; width: 300px; margin-left: 28px; align-self: center; }
+
+  /* mini advisor preview in feature card */
+  .mini { background: var(--bg-inset); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .mini-label { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin-bottom: 12px; }
+  .mini-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .mini-bar .nm { font-size: 12px; width: 92px; color: var(--text-1); }
+  .mini-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+  .mini-fill { height: 6px; border-radius: 999px; }
+  .mini-bar .ct { font-family: var(--font-mono); font-size: 11px; width: 52px; text-align: right; color: var(--text-1); }
+  .mini-save { font-family: var(--font-mono); font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 6px; }
+
+  .footnote { margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footnote .quote { font-size: 14px; color: var(--text-2); font-style: italic; max-width: 560px; line-height: 1.5; }
+  .swatches { display: flex; gap: 6px; }
+  .swatches span { width: 22px; height: 22px; border-radius: 5px; border: 1px solid var(--border); }
+
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } .deliv.feature { grid-column: span 1; flex-direction: column; } .feature-right { width: 100%; margin: 20px 0 0; } .hero h1 { font-size: 44px; } }
+</style>
+</head>
+<body>
+<div class="hub">
+  <div class="hub-top">
+    <div class="brandrow">
+      <div class="tile"><svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M14 30 L34 13" stroke="#fff" stroke-width="3.4" stroke-linecap="square"/><path d="M34 13 V43" stroke="#00E599" stroke-width="3.4" stroke-linecap="square"/></svg></div>
+      <span class="wm">GANTRY</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a class="btn btn-secondary btn-sm" href="Gantry Landing.html" style="text-decoration:none;">View landing →</a>
+      <span class="badge badge-neutral" style="height:24px;">Brand &amp; product system · v1.0</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Invisible infrastructure<br>for <span class="accent">AI</span>.</h1>
+    <p>A complete brand and UI design language for LLM cost observability — built so a developer opens it at 11pm and immediately trusts it.</p>
+    <div class="hero-meta">
+      <div class="hm"><span class="k">TYPEFACE</span><span class="v">Space Grotesk · Inter · JBM</span></div>
+      <div class="hm"><span class="k">PALETTE</span><span class="v">Dark-first · green accent</span></div>
+      <div class="hm"><span class="k">DELIVERABLES</span><span class="v">4 surfaces · 1 token set</span></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- Feature: Dashboard -->
+    <a class="deliv feature" href="Gantry Dashboard.html">
+      <div class="dv-glow"></div>
+      <div class="feature-left">
+        <div class="dv-head">
+          <div class="dv-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <span class="dv-idx">01 · interactive</span>
+        </div>
+        <div class="dv-title">Dashboard &amp; Model Advisor</div>
+        <div class="dv-desc">The Bloomberg-terminal-for-LLMs main shell. Live sidebar nav, date-range picker, real charts, and the Model Advisor hero that turns cost data into a one-click routing decision.</div>
+        <span class="dv-go">Open prototype <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <div class="feature-right">
+        <div class="mini">
+          <div class="mini-label">MODEL ADVISOR · classification</div>
+          <div class="mini-bar"><span class="nm">GPT-4o</span><div class="mini-track"><div class="mini-fill" style="width:100%;background:rgba(255,255,255,0.5);"></div></div><span class="ct">$14.6K</span></div>
+          <div class="mini-bar"><span class="nm" style="color:var(--accent);">Mistral L2</span><div class="mini-track"><div class="mini-fill" style="width:27%;background:var(--accent);"></div></div><span class="ct" style="color:var(--accent);">$3.9K</span></div>
+          <div class="mini-bar"><span class="nm">GPT-4o mini</span><div class="mini-track"><div class="mini-fill" style="width:14%;background:rgba(255,255,255,0.22);"></div></div><span class="ct">$2.1K</span></div>
+          <div class="mini-save">Save $10,700/mo →</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Design System -->
+    <a class="deliv" href="Gantry Design System.html">
+      <div class="dv-head">
+        <div class="dv-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5z"/><path d="M2 13l10 5 10-5"/></svg></div>
+        <span class="dv-idx">02 · reference</span>
+      </div>
+      <div>
+        <div class="dv-title">Design system</div>
+        <div class="dv-desc">Tokens, color, type scale, and the full component library — buttons, badges, tables, tabs, nav, toasts, charts.</div>
+      </div>
+      <span class="dv-go">View tokens &amp; components <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <!-- Onboarding -->
+    <a class="deliv" href="Gantry Onboarding.html">
+      <div class="dv-head">
+        <div class="dv-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <span class="dv-idx">03 · interactive</span>
+      </div>
+      <div>
+        <div class="dv-title">Onboarding flow</div>
+        <div class="dv-desc">GitHub sign-in → project + DSN key → first-event detection, with a live waiting-to-received state transition.</div>
+      </div>
+      <span class="dv-go">Run the flow <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <!-- Emails -->
+    <a class="deliv" href="Gantry Alert Emails.html" style="grid-column: span 2;">
+      <div class="dv-head">
+        <div class="dv-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.5 21a1.7 1.7 0 0 1-3 0"/></svg></div>
+        <span class="dv-idx">04 · templates</span>
+      </div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;">
+        <div>
+          <div class="dv-title">Alert email templates</div>
+          <div class="dv-desc" style="max-width:420px;">Spike and budget variants — table-based, dark, monospaced data, scannable. The Model Advisor nudge closes every alert.</div>
+          <span class="dv-go">See both variants <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+        <div style="display:flex;gap:8px;flex:none;">
+          <span class="badge badge-error" style="height:24px;"><span class="dot"></span>Spike</span>
+          <span class="badge badge-warning" style="height:24px;"><span class="dot"></span>Budget</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="footnote">
+    <div class="quote">“A developer opens Gantry at 11pm, sees their data immediately, and says — this was built by someone who actually ships LLM apps.”</div>
+    <div class="swatches">
+      <span style="background:#0B0F14;"></span>
+      <span style="background:#1A1F26;"></span>
+      <span style="background:#00E599;"></span>
+      <span style="background:#FFFFFF;"></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

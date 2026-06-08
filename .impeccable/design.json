@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-07T00:00:00.000Z",
+  "title": "Design System: Gantry",
+  "extensions": {
+    "colorMeta": {
+      "void-slate":       { "role": "neutral",  "displayName": "Void Slate",        "canonical": "oklch(9% 0.012 240)",    "tonalRamp": ["#030507","#070A0E","#0B0F14","#1A1F26","#21272F","#2A313A","#3A424D","#4E5A66"] },
+      "surface-1":        { "role": "neutral",  "displayName": "Surface 1",         "canonical": "oklch(14% 0.014 240)",   "tonalRamp": ["#070A0E","#0B0F14","#1A1F26","#21272F","#2A313A","#3A424D","#4E5A66","#5E6E7E"] },
+      "surface-2":        { "role": "neutral",  "displayName": "Surface 2",         "canonical": "oklch(17% 0.015 240)",   "tonalRamp": ["#0B0F14","#1A1F26","#21272F","#2A313A","#3A424D","#4E5A66","#5E6E7E","#708090"] },
+      "surface-3":        { "role": "neutral",  "displayName": "Surface 3",         "canonical": "oklch(20% 0.015 240)",   "tonalRamp": ["#1A1F26","#21272F","#2A313A","#3A424D","#4E5A66","#5E6E7E","#708090","#8899A8"] },
+      "surface-inset":    { "role": "neutral",  "displayName": "Surface Inset",     "canonical": "oklch(6% 0.010 240)",    "tonalRamp": ["#020304","#030507","#070A0E","#0B0F14","#1A1F26","#21272F","#2A313A","#3A424D"] },
+      "signal-green":     { "role": "primary",  "displayName": "Signal Green",      "canonical": "oklch(85% 0.22 160)",    "tonalRamp": ["#011A0B","#02270F","#013D1C","#02542A","#006B36","#008E4A","#00B863","#00E599"] },
+      "signal-green-600": { "role": "primary",  "displayName": "Signal Green 600",  "canonical": "oklch(79% 0.21 160)",    "tonalRamp": ["#011408","#021E0D","#023418","#015024","#006830","#008C43","#00B059","#00C985"] },
+      "signal-green-700": { "role": "primary",  "displayName": "Signal Green 700",  "canonical": "oklch(66% 0.19 160)",    "tonalRamp": ["#010E06","#01170A","#012912","#00401D","#005628","#007537","#009A4A","#00A06B"] },
+      "signal-green-ink": { "role": "primary",  "displayName": "Signal Green Ink",  "canonical": "oklch(15% 0.06 160)",    "tonalRamp": ["#020E07","#03140A","#06231A","#0A3425","#0D4530","#135A3F","#197050","#1F8762"] },
+      "warning":          { "role": "tertiary", "displayName": "Warning Amber",     "canonical": "oklch(80% 0.15 85)",     "tonalRamp": ["#251A00","#3A2800","#503900","#674B00","#7D5E00","#A07A00","#C89A00","#F5B544"] },
+      "error":            { "role": "tertiary", "displayName": "Error Red",         "canonical": "oklch(68% 0.20 25)",     "tonalRamp": ["#2B0000","#430000","#5C0101","#780202","#940707","#B81818","#D93535","#FF5C5C"] }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Hero heading only. One per page. text-wrap: balance." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings (h2). Max-width 720px. text-wrap: balance." },
+      "title":    { "displayName": "Title",    "purpose": "Feature card headings, step labels, sub-headings within sections." },
+      "body":     { "displayName": "Body",     "purpose": "All prose. Max ~600px line length. text-wrap: pretty." },
+      "label":    { "displayName": "Label",    "purpose": "Coordinate markers, nav links, status tags, data sub-labels. Data output only — never prose." }
+    },
+    "shadows": [
+      { "name": "subtle",      "value": "0 1px 2px rgba(0,0,0,0.4)",    "purpose": "Micro-lift for small interactive states. Used sparingly." },
+      { "name": "elevated",    "value": "0 4px 12px rgba(0,0,0,0.45)",  "purpose": "Floating elements, dropdown-level surfaces." },
+      { "name": "high",        "value": "0 12px 32px rgba(0,0,0,0.55)", "purpose": "Code editor card, browser mockup frame." },
+      { "name": "accent-glow", "value": "0 0 0 1px rgba(0,229,153,0.28), 0 8px 28px rgba(0,229,153,0.18)", "purpose": "One featured-boundary element per screen only. Advisor card or browser frame highlight." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.22,0.61,0.36,1)", "purpose": "All state transitions. Not bounce, not elastic." },
+      { "name": "dur-fast",      "value": "150ms",  "purpose": "Nav link hover, tab switch, micro-interactions." },
+      { "name": "dur-standard",  "value": "180ms",  "purpose": "Button hover, card hover, border-color transitions." },
+      { "name": "dur-reveal",    "value": "400ms",  "purpose": "ScrollReveal entrance (opacity + translateY). Ease-out." }
+    ],
+    "breakpoints": [
+      { "name": "tablet",  "value": "768px",  "note": "Nav links collapse; hero switches to single column." },
+      { "name": "desktop", "value": "980px",  "note": "Hero, integrate, and advisor layouts go side-by-side." },
+      { "name": "wide",    "value": "1200px", "note": "Max content width. lp-wrap caps here." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA. Signal Green background, Signal Green Ink text. Used for primary actions: start, install, get started.",
+      "html": "<button class=\"ds-btn-primary\">Start free</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1; padding: 0 16px; height: 36px; background: #00E599; color: #06231A; border: none; border-radius: 2px; cursor: pointer; white-space: nowrap; text-decoration: none; transition: background 180ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 180ms cubic-bezier(0.22,0.61,0.36,1), transform 180ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-primary:hover { background: #00C985; box-shadow: 0 4px 16px rgba(0,229,153,0.22); } .ds-btn-primary:active { background: #00A06B; transform: translateY(0.5px); } .ds-btn-primary:focus-visible { outline: 2px solid rgba(0,229,153,0.55); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Alternative CTA. Transparent with border. Used alongside primary for secondary actions: docs, learn more.",
+      "html": "<button class=\"ds-btn-secondary\">Read the docs</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1; padding: 0 16px; height: 36px; background: transparent; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.14); border-radius: 2px; cursor: pointer; white-space: nowrap; text-decoration: none; transition: background 180ms cubic-bezier(0.22,0.61,0.36,1), border-color 180ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-secondary:hover { background: #21272F; border-color: rgba(255,255,255,0.38); } .ds-btn-secondary:active { transform: translateY(0.5px); } .ds-btn-secondary:focus-visible { outline: 2px solid rgba(0,229,153,0.55); outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Tertiary action. No border, no background. Used for low-priority navigation actions like Sign in.",
+      "html": "<button class=\"ds-btn-ghost\">Sign in</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1; padding: 0 16px; height: 36px; background: transparent; color: rgba(255,255,255,0.78); border: none; border-radius: 2px; cursor: pointer; white-space: nowrap; text-decoration: none; transition: background 180ms cubic-bezier(0.22,0.61,0.36,1), color 180ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-ghost:hover { background: #21272F; color: #FFFFFF; } .ds-btn-ghost:focus-visible { outline: 2px solid rgba(0,229,153,0.55); outline-offset: 2px; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Sticky top nav. Blurred dark background. Brand horizontal logo left, mono links center, CTA cluster right.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-in\"><span class=\"ds-nav-brand\">GANTRY</span><div class=\"ds-nav-links\"><a href=\"#\">product</a><a href=\"#\">docs</a><a href=\"#\">pricing</a></div><div class=\"ds-nav-right\"><button class=\"ds-btn-ghost ds-btn-sm\">Sign in</button><button class=\"ds-btn-primary ds-btn-sm\">Start free</button></div></div></nav>",
+      "css": ".ds-nav { position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.09); background: rgba(11,15,20,0.72); backdrop-filter: blur(16px); } .ds-nav-in { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; } .ds-nav-brand { font-weight: 700; letter-spacing: 0.24em; font-size: 14px; color: #FFFFFF; } .ds-nav-links { display: flex; align-items: center; gap: 4px; } .ds-nav-links a { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.04em; color: rgba(255,255,255,0.56); text-decoration: none; padding: 7px 12px; border-radius: 2px; transition: color 150ms, background 150ms; } .ds-nav-links a:hover { color: #FFFFFF; background: rgba(255,255,255,0.04); } .ds-nav-right { display: flex; align-items: center; gap: 12px; } .ds-btn-sm { height: 30px !important; font-size: 13px !important; padding: 0 12px !important; }"
+    },
+    {
+      "name": "Feature Card",
+      "kind": "card",
+      "description": "Standard feature grid cell. Flat at rest, Surface 2 on hover. Blueprint index + icon + heading + body + footer link.",
+      "html": "<div class=\"ds-feat\"><span class=\"ds-feat-ix\">01</span><div class=\"ds-feat-ic\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\"><rect x=\"2\" y=\"2\" width=\"5\" height=\"12\" rx=\"1\" fill=\"currentColor\" opacity=\"0.7\"/><rect x=\"9\" y=\"5\" width=\"5\" height=\"9\" rx=\"1\" fill=\"currentColor\"/><rect x=\"2\" y=\"8\" width=\"12\" height=\"1.5\" fill=\"currentColor\" opacity=\"0.4\"/></svg></div><h3>Cost tracking</h3><p>Every token billed to the right team, project, and model version in real time.</p><span class=\"ds-feat-foot acc\">→ View cost dashboard</span></div>",
+      "css": ".ds-feat { background: #0B0F14; padding: 28px; position: relative; min-height: 220px; display: flex; flex-direction: column; transition: background 200ms; border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; } .ds-feat:hover { background: #1A1F26; } .ds-feat-ix { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.38); letter-spacing: 0.1em; } .ds-feat-ic { width: 38px; height: 38px; border-radius: 2px; border: 1px solid rgba(255,255,255,0.14); display: grid; place-items: center; color: rgba(255,255,255,0.78); margin: 18px 0 16px; } .ds-feat.is-accent .ds-feat-ic { border-color: rgba(0,229,153,0.28); background: rgba(0,229,153,0.12); color: #00E599; } .ds-feat h3 { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 18px; font-weight: 600; margin: 0 0 8px; color: #FFFFFF; } .ds-feat p { font-size: 14px; color: rgba(255,255,255,0.56); line-height: 1.5; margin: 0; } .ds-feat-foot { margin-top: auto; padding-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.78); display: block; } .ds-feat-foot.acc { color: #00E599; }"
+    },
+    {
+      "name": "Install Pill",
+      "kind": "custom",
+      "description": "Inline terminal command with copy button. Dark inset background, monospace, dollar prompt in muted text.",
+      "html": "<div class=\"ds-install\"><span class=\"ds-dollar\">$</span><span class=\"ds-pkg\">npm install <b>@gantry/sdk</b></span><button class=\"ds-copy\" aria-label=\"Copy command\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"9\" y=\"9\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg></button></div>",
+      "css": ".ds-install { display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(255,255,255,0.78); background: #070A0E; border: 1px solid rgba(255,255,255,0.08); border-radius: 2px; padding: 11px 12px 11px 14px; } .ds-dollar { color: rgba(255,255,255,0.38); } .ds-pkg b { color: #00E599; font-weight: 500; } .ds-copy { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 2px; border: 1px solid rgba(255,255,255,0.08); background: #1A1F26; color: rgba(255,255,255,0.56); cursor: pointer; transition: color 150ms, border-color 150ms; } .ds-copy:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.38); }"
+    },
+    {
+      "name": "Status Eyebrow",
+      "kind": "chip",
+      "description": "Hero eyebrow pill. Pulsing green dot + mono label. Used once per page as the product status / version indicator.",
+      "html": "<span class=\"ds-eyebrow\"><span class=\"ds-pip\"></span>LLM cost observability · v1.0 is live</span>",
+      "css": ".ds-eyebrow { display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: rgba(255,255,255,0.56); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; padding: 6px 13px; } .ds-pip { width: 6px; height: 6px; border-radius: 999px; background: #00E599; box-shadow: 0 0 8px rgba(0,229,153,0.7); flex-shrink: 0; }"
+    },
+    {
+      "name": "Blueprint Frame",
+      "kind": "custom",
+      "description": "Precision framing device: 7×7px corner brackets at each corner of a key container. Used sparingly on 1-2 data containers per section.",
+      "html": "<div class=\"ds-gy-frame\" style=\"width:200px;height:100px;display:flex;align-items:center;justify-content:center;\"><span class=\"ds-gy-c tl\"></span><span class=\"ds-gy-c tr\"></span><span class=\"ds-gy-c bl\"></span><span class=\"ds-gy-c br\"></span><span style=\"font-family:monospace;font-size:12px;color:rgba(255,255,255,0.38);\">framed element</span></div>",
+      "css": ".ds-gy-frame { position: relative; } .ds-gy-c { position: absolute; width: 7px; height: 7px; border: 0 solid rgba(255,255,255,0.42); pointer-events: none; } .ds-gy-c.tl { top:0; left:0; border-top-width:1px; border-left-width:1px; } .ds-gy-c.tr { top:0; right:0; border-top-width:1px; border-right-width:1px; } .ds-gy-c.bl { bottom:0; left:0; border-bottom-width:1px; border-left-width:1px; } .ds-gy-c.br { bottom:0; right:0; border-bottom-width:1px; border-right-width:1px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Instrument Layer",
+    "overview": "Gantry's design system is the substrate beneath the stack: invisible until you need it, then unmistakably precise. Every token, rule, and component derives from one premise — the interface is infrastructure. It does not perform. It does not decorate. It measures.\n\nThe dominant surface is Void Slate (#0B0F14), the near-absolute dark against which Signal Green (#00E599) reads as a live telemetry pulse. Blueprint grid lines appear at 9% opacity across hero sections to suggest a coordinate system without naming one. Corner brackets mark boundaries as a surveyor marks a site. The vocabulary is borrowed from precision instruments: tick marks, readings, traces, output lines.\n\nThis system explicitly rejects Generic AI SaaS (purple gradients, glowing orb hero sections, particle mesh), Startup Hustle (testimonial carousels, emoji in headings, unverified social proof badges), and Enterprise Heavy (navy/white palette, compliance logo grids, sales-speak). Gantry is developer-led and earns attention through specificity.",
+    "keyCharacteristics": [
+      "Near-absolute dark background with five tonal surface steps for depth",
+      "Single saturated accent (Signal Green) used sparingly as a live-data signal",
+      "Monospace type for all data output; display/body pair for headings and prose",
+      "2-3px corner radii throughout — machined, not rounded",
+      "Blueprint aesthetic: hairline grids, corner brackets, coordinate labels",
+      "Motion measured in milliseconds, state changes only; 180ms standard duration"
+    ],
+    "rules": [
+      { "name": "The Signal Scarcity Rule",   "body": "Signal Green appears on ≤15% of any screen. Its rarity is what makes it mean 'live data.' When Signal Green loses rarity, it becomes wallpaper. If you count more than three distinct Signal Green elements in a single viewport, remove the least critical one.", "section": "colors" },
+      { "name": "The Text Floor Rule",         "body": "The floor for body-size text is Text 2 (rgba(255,255,255,0.56)) on a Void Slate background. Text 3 is permitted only for labels in monospace at ≥11px with wide letter-spacing. Text 4 is never for reading.", "section": "colors" },
+      { "name": "The Mono-as-Instrument Rule", "body": "JetBrains Mono is used exclusively for data output: labels, coordinates, code, status messages. Never for headings or prose. When the reader sees monospace, they are reading a measurement or an identifier — not a sentence.", "section": "typography" },
+      { "name": "The Heading Ceiling Rule",    "body": "Display headings cap at 60px. Section headings cap at 40px. The page does not shout. Letter-spacing floor on display: -0.005em.", "section": "typography" },
+      { "name": "The Flat-by-Default Rule",    "body": "Cards, rows, and list items are flat at rest. A shadow does not appear because something is important; it appears because something is physically lifted. Importance is signaled by Signal Green, not by blur radius.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Signal Green for live data, active states, and success signals. Reserve it — its scarcity makes it trustworthy.",
+      "Do step through the five background tiers to create depth without decorative shadows.",
+      "Do keep border-radius at 2px for interactive elements and 3px maximum for large containers.",
+      "Do write copy in developer vocabulary: specific nouns, concrete verbs, real numbers.",
+      "Do use JetBrains Mono exclusively for data output. Never for prose.",
+      "Do test body text (Text 2 on Void Slate) for WCAG AA contrast before shipping.",
+      "Do include @media (prefers-reduced-motion: reduce) for every animation.",
+      "Do use text-wrap: balance on h1/h2 and text-wrap: pretty on prose blocks."
+    ],
+    "donts": [
+      "Don't use purple gradients, glowing orb hero sections, particle mesh backgrounds, or animated abstract blobs.",
+      "Don't add emoji to headings, use confetti effects, or show testimonial carousels.",
+      "Don't use navy/white corporate palette, compliance logo grids, or phrases like 'enterprise-grade' or 'mission-critical'.",
+      "Don't pair a 1px border with a box-shadow blur ≥16px on the same element.",
+      "Don't increase border-radius above 3px on cards or containers.",
+      "Don't use background-clip: text with a gradient.",
+      "Don't put monospace eyebrows above every section as structural scaffolding.",
+      "Don't write aphoristic-cadence copy (serious statement, then punchy short negation).",
+      "Don't use Signal Green as a surface background for non-button elements."
+    ]
+  }
+}

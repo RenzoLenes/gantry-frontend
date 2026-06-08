@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gantry — Design System</title>
+<link rel="stylesheet" href="assets/gantry.css">
+<style>
+  .ds-wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--sp-8) var(--sp-16); }
+  .ds-top {
+    position: sticky; top: 0; z-index: var(--z-sticky);
+    background: rgba(11,15,20,0.82); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .ds-top-in { max-width: 1160px; margin: 0 auto; padding: var(--sp-4) var(--sp-8); display: flex; align-items: center; justify-content: space-between; }
+  .brandrow { display: flex; align-items: center; gap: var(--sp-3); }
+  .wordmark { font-weight: 700; font-size: var(--t-16); letter-spacing: 0.34em; }
+
+  .hero { padding: var(--sp-16) 0 var(--sp-12); border-bottom: 1px solid var(--border); }
+  .hero h1 { font-family: var(--font-display); font-size: 56px; font-weight: 600; letter-spacing: 0.005em; margin: var(--sp-6) 0 var(--sp-4); line-height: 1.04; }
+  .hero p { font-size: var(--t-20); color: var(--text-1); max-width: 560px; margin: 0; }
+  .hero .nav-back { display:inline-flex; align-items:center; gap:6px; font-size: var(--t-13); color: var(--text-2); text-decoration: none; }
+  .hero .nav-back:hover { color: var(--accent); }
+
+  section.block { padding: var(--sp-12) 0; border-bottom: 1px solid var(--border); }
+  .sec-head { display: flex; align-items: baseline; gap: var(--sp-4); margin-bottom: var(--sp-8); }
+  .sec-head h2 { font-family: var(--font-display); font-size: var(--t-24); font-weight: 600; letter-spacing: 0.01em; margin: 0; white-space: nowrap; }
+  .sec-head { flex-wrap: nowrap; }
+  .sec-head .idx { font-family: var(--font-mono); font-size: var(--t-13); color: var(--accent); }
+  .sec-sub { color: var(--text-2); font-size: var(--t-14); margin: -4px 0 var(--sp-8); max-width: 620px; }
+
+  .grid { display: grid; gap: var(--sp-4); }
+  .specimen { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--sp-6); }
+  .spec-cap { font-family: var(--font-mono); font-size: var(--t-12); color: var(--text-3); margin-top: var(--sp-4); display: flex; justify-content: space-between; gap: var(--sp-3); }
+
+  /* color swatches */
+  .sw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  .sw { border: 1px solid var(--border); border-radius: var(--r-3); overflow: hidden; background: var(--bg-1); }
+  .sw-chip { height: 96px; }
+  .sw-meta { padding: var(--sp-3) var(--sp-4); }
+  .sw-name { font-size: var(--t-13); font-weight: 600; }
+  .sw-hex { font-family: var(--font-mono); font-size: var(--t-12); color: var(--text-2); margin-top: 2px; text-transform: uppercase; }
+
+  .status-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-3); }
+
+  /* type scale rows */
+  .type-row { display: flex; align-items: baseline; gap: var(--sp-6); padding: var(--sp-4) 0; border-bottom: 1px dashed var(--border); }
+  .type-row:last-child { border-bottom: 0; }
+  .type-tag { font-family: var(--font-mono); font-size: var(--t-12); color: var(--text-3); width: 130px; flex: none; }
+
+  /* token table */
+  .ttable { width: 100%; border-collapse: collapse; }
+  .ttable td { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border); font-size: var(--t-13); }
+  .ttable td:first-child { font-family: var(--font-mono); color: var(--accent); width: 180px; }
+  .ttable td:nth-child(2) { font-family: var(--font-mono); color: var(--text-1); width: 140px; }
+  .ttable td:last-child { color: var(--text-2); }
+  .ttable tr:last-child td { border-bottom: 0; }
+
+  .scale-vis { display:flex; align-items:flex-end; gap: var(--sp-3); flex-wrap: wrap; }
+  .scale-box { background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r-1); }
+  .scale-num { font-family: var(--font-mono); font-size: var(--t-12); color: var(--text-2); text-align:center; margin-top: 6px; }
+
+  .radius-vis { display:flex; gap: var(--sp-6); }
+  .radius-box { width: 72px; height: 72px; background: var(--bg-2); border: 1px solid var(--border-strong); }
+
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+  .demo-stack { display: flex; flex-direction: column; gap: var(--sp-4); align-items: flex-start; }
+  .demo-row { display: flex; gap: var(--sp-3); flex-wrap: wrap; align-items: center; }
+
+  .toast {
+    display: flex; gap: var(--sp-3); padding: var(--sp-4); width: 380px;
+    background: var(--bg-2); border: 1px solid var(--border-strong);
+    border-left: 3px solid var(--error); border-radius: var(--r-2); box-shadow: var(--sh-3);
+  }
+  .toast.ok { border-left-color: var(--accent); }
+  .toast-ic { width: 32px; height: 32px; border-radius: var(--r-2); display:grid; place-items:center; flex:none; background: var(--error-soft); color: var(--error); }
+  .toast.ok .toast-ic { background: var(--accent-soft); color: var(--accent); }
+  .toast-title { font-size: var(--t-14); font-weight: 600; }
+  .toast-body { font-size: var(--t-13); color: var(--text-2); margin-top: 2px; }
+
+  .navitem-demo { width: 230px; background: var(--bg-inset); border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--sp-3); display:flex; flex-direction:column; gap: 2px; }
+  .nav-i { display:flex; align-items:center; gap: var(--sp-3); padding: 8px var(--sp-3); border-radius: var(--r-2); font-size: var(--t-14); color: var(--text-2); cursor: default; }
+  .nav-i svg { width: 17px; height: 17px; opacity: 0.85; }
+  .nav-i.active { background: var(--bg-2); color: var(--text-0); box-shadow: inset 2px 0 0 var(--accent); }
+  .nav-i.hover { background: rgba(255,255,255,0.04); color: var(--text-0); }
+
+  .legend { display:flex; gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-3); }
+  .legend span { font-family: var(--font-mono); font-size: var(--t-12); color: var(--text-3); }
+
+  .mark-tri { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--sp-4); }
+  .mark-cell { aspect-ratio: 1; border-radius: var(--r-3); display:grid; place-items:center; border:1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<div class="ds-top">
+  <div class="ds-top-in">
+    <div class="brandrow">
+      <span class="gy-mark" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 48 48" fill="none">
+          <path d="M14 5 V43 M34 13 V43 M14 30 L34 13" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="square"/>
+        </svg>
+      </span>
+      <span class="wordmark">GANTRY</span>
+      <span class="badge badge-neutral" style="margin-left:6px;">Design System v1.0</span>
+    </div>
+    <div class="demo-row">
+      <a class="btn btn-ghost btn-sm" href="Gantry Hub.html">All deliverables</a>
+      <a class="btn btn-primary btn-sm" href="Gantry Dashboard.html">Open dashboard →</a>
+    </div>
+  </div>
+</div>
+
+<div class="ds-wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <a class="nav-back" href="Gantry Hub.html">← Gantry</a>
+    <h1>The system behind<br>the signal.</h1>
+    <p>Tokens, components, and rules for building Gantry — observability and cost optimization for LLMs in production. Dark-first, high-contrast, engineered for data density.</p>
+  </header>
+
+  <!-- 01 BRAND / MARK -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">01</span><h2>Mark &amp; wordmark</h2></div>
+    <p class="sec-sub">An abstract “h”-ligature: two vertical strokes joined by a diagonal crossbar. Three approved treatments. The mark never rotates, never gains a gradient, and clear space equals the width of one stroke on all sides.</p>
+    <div class="mark-tri">
+      <div class="mark-cell" style="background:var(--bg-1);">
+        <svg width="76" height="76" viewBox="0 0 48 48" fill="none">
+          <path d="M14 5 V43 M34 13 V43 M14 30 L34 13" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="square"/>
+        </svg>
+      </div>
+      <div class="mark-cell" style="background:var(--bg-1);">
+        <svg width="76" height="76" viewBox="0 0 48 48" fill="none">
+          <path d="M14 5 V43 M14 30 L34 13" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="square"/>
+          <path d="M34 13 V43" stroke="#00E599" stroke-width="3.2" stroke-linecap="square"/>
+        </svg>
+      </div>
+      <div class="mark-cell" style="background:#FFFFFF;">
+        <svg width="76" height="76" viewBox="0 0 48 48" fill="none">
+          <path d="M14 5 V43 M34 13 V43 M14 30 L34 13" stroke="#0B0F14" stroke-width="3.2" stroke-linecap="square"/>
+        </svg>
+      </div>
+    </div>
+    <div class="legend">
+      <span>01 · outline / white</span><span>02 · green accent stroke</span><span>03 · filled on white</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin-top: var(--sp-4);">
+      <div class="specimen" style="display:flex; align-items:center; gap: var(--sp-4);">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+          <path d="M14 5 V43 M34 13 V43 M14 30 L34 13" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="square"/>
+        </svg>
+        <span class="wordmark" style="font-size:22px;">GANTRY</span>
+        <span class="spec-cap" style="margin-left:auto;">Lockup · horizontal</span>
+      </div>
+      <div class="specimen" style="display:flex; align-items:center; justify-content:center; gap: var(--sp-3); background:var(--bg-inset);">
+        <div style="width:56px;height:56px;border-radius:14px;background:#15191F;display:grid;place-items:center;box-shadow:var(--sh-2);">
+          <svg width="30" height="30" viewBox="0 0 48 48" fill="none"><path d="M14 5 V43 M34 13 V43 M14 30 L34 13" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="square"/></svg>
+        </div>
+        <span class="spec-cap" style="margin-left:8px;">App icon · 14px radius container</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 COLOR -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">02</span><h2>Color</h2></div>
+    <p class="sec-sub">Four core values. The accent green carries meaning — CTAs, active states, positive deltas, data highlights, and the Model Advisor. It is never decorative. Status colors borrow amber and red only where something needs attention.</p>
+
+    <div class="eyebrow" style="margin-bottom:var(--sp-3);">Core</div>
+    <div class="sw-grid">
+      <div class="sw"><div class="sw-chip" style="background:#0B0F14;"></div><div class="sw-meta"><div class="sw-name">Background primary</div><div class="sw-hex">#0B0F14</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#1A1F26;"></div><div class="sw-meta"><div class="sw-name">Background secondary</div><div class="sw-hex">#1A1F26</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#00E599;"></div><div class="sw-meta"><div class="sw-name">Accent / CTA</div><div class="sw-hex">#00E599</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#FFFFFF;"></div><div class="sw-meta"><div class="sw-name">Text / white</div><div class="sw-hex">#FFFFFF</div></div></div>
+    </div>
+
+    <div class="eyebrow" style="margin:var(--sp-8) 0 var(--sp-3);">Surfaces &amp; text ramp</div>
+    <div class="sw-grid">
+      <div class="sw"><div class="sw-chip" style="background:#21272F;"></div><div class="sw-meta"><div class="sw-name">Surface elevated</div><div class="sw-hex">#21272F</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#2A313A;"></div><div class="sw-meta"><div class="sw-name">Hover</div><div class="sw-hex">#2A313A</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#070A0E;"></div><div class="sw-meta"><div class="sw-name">Inset / well</div><div class="sw-hex">#070A0E</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:linear-gradient(90deg,#fff,rgba(255,255,255,0.24));"></div><div class="sw-meta"><div class="sw-name">Text 100→24%</div><div class="sw-hex">opacity ramp</div></div></div>
+    </div>
+
+    <div class="eyebrow" style="margin:var(--sp-8) 0 var(--sp-3);">Status</div>
+    <div class="status-grid">
+      <div class="sw"><div class="sw-chip" style="background:#00E599;height:64px;"></div><div class="sw-meta"><div class="sw-name">OK / Savings</div><div class="sw-hex">#00E599</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#F5B544;height:64px;"></div><div class="sw-meta"><div class="sw-name">Warning</div><div class="sw-hex">#F5B544</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#FF5C5C;height:64px;"></div><div class="sw-meta"><div class="sw-name">Error / Spike</div><div class="sw-hex">#FF5C5C</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#5B9DFF;height:64px;"></div><div class="sw-meta"><div class="sw-name">Info</div><div class="sw-hex">#5B9DFF</div></div></div>
+    </div>
+  </section>
+
+  <!-- 03 TYPE -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">03</span><h2>Typography</h2></div>
+    <p class="sec-sub">Space Grotesk for display headings — wide, geometric, structural, echoing the wordmark. Inter for body and UI. JetBrains Mono for everything machine-measured — tokens, costs, latency, IDs. Tabular figures everywhere numbers align. No serifs, no editorial display.</p>
+
+    <div class="specimen">
+      <div class="type-row"><span class="type-tag">32 · Grotesk</span><span style="font-family:var(--font-display);font-size:32px;font-weight:600;letter-spacing:0.01em;">Total cost this month</span></div>
+      <div class="type-row"><span class="type-tag">24 · Grotesk</span><span style="font-family:var(--font-display);font-size:24px;font-weight:600;letter-spacing:0.01em;">Model Advisor</span></div>
+      <div class="type-row"><span class="type-tag">20 · SemiBold</span><span style="font-size:20px;font-weight:600;">Cost by model</span></div>
+      <div class="type-row"><span class="type-tag">16 · Medium</span><span style="font-size:16px;font-weight:500;">Real-time visibility for production LLMs.</span></div>
+      <div class="type-row"><span class="type-tag">14 · Regular</span><span style="font-size:14px;color:var(--text-1);">Body copy at 78% white. The workhorse size for descriptions, table cells, and form labels.</span></div>
+      <div class="type-row"><span class="type-tag">13 · Regular</span><span style="font-size:13px;color:var(--text-2);">Secondary / supporting copy at 56%.</span></div>
+      <div class="type-row"><span class="type-tag">12 · SemiBold ↑</span><span class="eyebrow">Section label · uppercase 0.14em</span></div>
+      <div class="type-row"><span class="type-tag">Mono · data</span><span class="mono" style="font-size:16px;">$128,430.24 · 1.94M tok · 842ms p95</span></div>
+    </div>
+  </section>
+
+  <!-- 04 TOKENS: spacing / radius -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">04</span><h2>Spacing, radius &amp; layers</h2></div>
+    <p class="sec-sub">A 4px base unit. Content padding is 28px; the dashboard grid steps in multiples of 8. Corners stay tight — 8px maximum on cards, pills excepted.</p>
+
+    <div class="comp-grid">
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Spacing scale · 4px base</div>
+        <div class="scale-vis">
+          <div><div class="scale-box" style="width:4px;height:4px;"></div><div class="scale-num">4</div></div>
+          <div><div class="scale-box" style="width:8px;height:8px;"></div><div class="scale-num">8</div></div>
+          <div><div class="scale-box" style="width:12px;height:12px;"></div><div class="scale-num">12</div></div>
+          <div><div class="scale-box" style="width:16px;height:16px;"></div><div class="scale-num">16</div></div>
+          <div><div class="scale-box" style="width:20px;height:20px;"></div><div class="scale-num">20</div></div>
+          <div><div class="scale-box" style="width:24px;height:24px;"></div><div class="scale-num">24</div></div>
+          <div><div class="scale-box" style="width:28px;height:28px;"></div><div class="scale-num">28</div></div>
+          <div><div class="scale-box" style="width:32px;height:32px;"></div><div class="scale-num">32</div></div>
+        </div>
+      </div>
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Border radius</div>
+        <div class="radius-vis">
+          <div><div class="radius-box" style="border-radius:4px;"></div><div class="scale-num">4 · default</div></div>
+          <div><div class="radius-box" style="border-radius:6px;"></div><div class="scale-num">6 · buttons</div></div>
+          <div><div class="radius-box" style="border-radius:8px;"></div><div class="scale-num">8 · cards</div></div>
+          <div><div class="radius-box" style="border-radius:999px;"></div><div class="scale-num">pill</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="specimen" style="margin-top:var(--sp-4);">
+      <div class="eyebrow" style="margin-bottom:var(--sp-4);">Z-index layers</div>
+      <table class="ttable">
+        <tr><td>--z-sticky</td><td>100</td><td>Sticky topbar, table headers</td></tr>
+        <tr><td>--z-nav</td><td>200</td><td>Sidebar, fixed navigation</td></tr>
+        <tr><td>--z-dropdown</td><td>300</td><td>Selects, menus, date picker</td></tr>
+        <tr><td>--z-overlay</td><td>400</td><td>Scrims behind modals</td></tr>
+        <tr><td>--z-modal</td><td>500</td><td>Dialogs, command palette</td></tr>
+        <tr><td>--z-toast</td><td>600</td><td>Spike alerts, notifications</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 05 BUTTONS / INPUTS -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">05</span><h2>Buttons &amp; inputs</h2></div>
+    <div class="comp-grid">
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Buttons</div>
+        <div class="demo-stack">
+          <div class="demo-row">
+            <button class="btn btn-primary">Get started</button>
+            <button class="btn btn-secondary">Book a demo</button>
+            <button class="btn btn-ghost">Cancel</button>
+          </div>
+          <div class="demo-row">
+            <button class="btn btn-primary btn-sm">Apply</button>
+            <button class="btn btn-secondary btn-sm">Export</button>
+            <button class="btn btn-primary" disabled>Disabled</button>
+          </div>
+          <button class="btn btn-primary btn-lg btn-block">Connect repository</button>
+        </div>
+      </div>
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Inputs</div>
+        <div class="demo-stack" style="width:100%;">
+          <div style="width:100%;"><label class="field-label">Project name</label><input class="input" value="payments-api" /></div>
+          <div style="width:100%;"><label class="field-label">DSN key</label><input class="input mono" value="gy_live_8f2c…a91b" readonly /></div>
+          <div style="width:100%;"><label class="field-label">Region</label>
+            <select class="select"><option>us-east-1</option><option>eu-west-1</option></select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 BADGES / TABS -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">06</span><h2>Badges, deltas &amp; tabs</h2></div>
+    <div class="comp-grid">
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Status pills</div>
+        <div class="demo-row" style="gap:var(--sp-3);">
+          <span class="badge badge-ok"><span class="dot"></span>Healthy</span>
+          <span class="badge badge-savings">↓ Savings</span>
+          <span class="badge badge-warning"><span class="dot"></span>Budget 82%</span>
+          <span class="badge badge-error"><span class="dot"></span>Spike</span>
+          <span class="badge badge-neutral">Draft</span>
+        </div>
+        <div class="eyebrow" style="margin:var(--sp-6) 0 var(--sp-4);">Deltas</div>
+        <div class="demo-row" style="gap:var(--sp-4);">
+          <span class="delta delta-up">▼ 12.4%</span>
+          <span class="delta delta-down">▲ 31.0%</span>
+          <span class="mono" style="color:var(--text-2);font-size:13px;">vs. prior 30d</span>
+        </div>
+        <p class="spec-cap" style="margin-top:var(--sp-5);"><span>Green = cost down / good. Red = cost up.</span></p>
+      </div>
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Segmented tabs</div>
+        <div class="tabs">
+          <button class="tab active">Cost</button>
+          <button class="tab">Tokens</button>
+          <button class="tab">Latency</button>
+          <button class="tab">Errors</button>
+        </div>
+        <div class="eyebrow" style="margin:var(--sp-6) 0 var(--sp-4);">Underline tabs</div>
+        <div class="tabs-line">
+          <button class="tab-line active">Overview</button>
+          <button class="tab-line">By model</button>
+          <button class="tab-line">By feature</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 NAV / TOAST -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">07</span><h2>Navigation &amp; toasts</h2></div>
+    <div class="comp-grid">
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Sidebar nav · states</div>
+        <div class="navitem-demo">
+          <div class="nav-i active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+            Overview
+          </div>
+          <div class="nav-i hover">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+            Usage
+          </div>
+          <div class="nav-i">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>
+            Budgets
+          </div>
+          <div class="nav-i">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.5 21a1.7 1.7 0 0 1-3 0"/></svg>
+            Alerts
+          </div>
+        </div>
+        <div class="legend"><span>default</span><span>hover</span><span class="" style="color:var(--accent);">active · left rule</span></div>
+      </div>
+      <div class="specimen">
+        <div class="eyebrow" style="margin-bottom:var(--sp-5);">Toasts</div>
+        <div class="demo-stack">
+          <div class="toast">
+            <div class="toast-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+            <div><div class="toast-title">Spike detected · payments-api</div><div class="toast-body">GPT-4o spend up <span class="mono" style="color:var(--error)">+31%</span> in the last hour.</div></div>
+          </div>
+          <div class="toast ok">
+            <div class="toast-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div><div class="toast-title">First event received</div><div class="toast-body">Gantry is now tracking <span class="mono" style="color:var(--accent)">payments-api</span>.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 STAT CARDS / TABLE -->
+  <section class="block">
+    <div class="sec-head"><span class="idx">08</span><h2>Stat cards &amp; data table</h2></div>
+    <div class="grid" style="grid-template-columns: repeat(3,1fr); margin-bottom: var(--sp-4);">
+      <div class="stat-card">
+        <p class="stat-label">Total cost · 30d</p>
+        <p class="stat-value mono">$128,430</p>
+        <div class="stat-foot"><span class="delta delta-up">▼ 12.4%</span> vs. prior 30d</div>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Tokens processed</p>
+        <p class="stat-value mono">1.94B</p>
+        <div class="stat-foot"><span class="delta" style="color:var(--text-1)">▲ 8.1%</span> volume up</div>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">p95 latency</p>
+        <p class="stat-value mono">842<span style="font-size:18px;color:var(--text-2)">ms</span></p>
+        <div class="stat-foot"><span class="badge badge-ok" style="height:20px;"><span class="dot"></span>within SLA</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Model</th><th style="text-align:right;">Spend</th><th style="text-align:right;">Tokens</th><th style="text-align:right;">Share</th><th style="text-align:right;">p95</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="t-name">GPT-4o</td><td class="num">$68,430.24</td><td class="num">812M</td><td class="num">53%</td><td class="num">910ms</td><td><span class="badge badge-ok" style="height:20px;"><span class="dot"></span>OK</span></td></tr>
+          <tr><td class="t-name">Claude 3.5 Sonnet</td><td class="num">$34,250.11</td><td class="num">604M</td><td class="num">27%</td><td class="num">740ms</td><td><span class="badge badge-ok" style="height:20px;"><span class="dot"></span>OK</span></td></tr>
+          <tr><td class="t-name">Gemini 1.5 Pro</td><td class="num">$15,720.10</td><td class="num">388M</td><td class="num">12%</td><td class="num">1.2s</td><td><span class="badge badge-warning" style="height:20px;"><span class="dot"></span>Slow</span></td></tr>
+          <tr><td class="t-name">Mistral Large 2</td><td class="num">$10,028.79</td><td class="num">140M</td><td class="num">8%</td><td class="num">680ms</td><td><span class="badge badge-ok" style="height:20px;"><span class="dot"></span>OK</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 09 CHART CONTAINER -->
+  <section class="block" style="border-bottom:0;">
+    <div class="sec-head"><span class="idx">09</span><h2>Chart container</h2></div>
+    <p class="sec-sub">Charts live in a labelled well with a header row (title + segmented control) and a 1px gridline field. Lines render in accent green only where the series represents the primary, healthy signal.</p>
+    <div class="card card-pad">
+      <div class="row spread" style="margin-bottom:var(--sp-5);">
+        <div>
+          <div class="stat-label" style="margin:0;">Total cost</div>
+          <div class="row gap-3" style="margin-top:4px;"><span class="mono" style="font-size:24px;font-weight:600;">$128,430.24</span><span class="delta delta-up">▼ 12.4%</span></div>
+        </div>
+        <div class="tabs"><button class="tab">7d</button><button class="tab active">30d</button><button class="tab">90d</button></div>
+      </div>
+      <svg viewBox="0 0 720 180" width="100%" height="180" preserveAspectRatio="none" style="display:block;">
+        <defs>
+          <linearGradient id="cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00E599" stop-opacity="0.22"/><stop offset="1" stop-color="#00E599" stop-opacity="0"/></linearGradient>
+        </defs>
+        <g stroke="rgba(255,255,255,0.06)"><line x1="0" y1="36" x2="720" y2="36"/><line x1="0" y1="90" x2="720" y2="90"/><line x1="0" y1="144" x2="720" y2="144"/></g>
+        <path d="M0,120 C60,110 90,135 140,118 C190,101 220,96 280,108 C340,120 360,78 420,84 C480,90 510,60 560,66 C620,73 660,48 720,40 L720,180 L0,180 Z" fill="url(#cf)"/>
+        <path d="M0,120 C60,110 90,135 140,118 C190,101 220,96 280,108 C340,120 360,78 420,84 C480,90 510,60 560,66 C620,73 660,48 720,40" fill="none" stroke="#00E599" stroke-width="2"/>
+      </svg>
+      <div class="row spread mono" style="font-size:12px;color:var(--text-3);margin-top:var(--sp-3);"><span>May 1</span><span>May 14</span><span>May 28</span></div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
