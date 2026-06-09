@@ -172,6 +172,7 @@ export default function Hero() {
           background: 'var(--bg-0)',
           marginTop: '-12vh',
           paddingBottom: 96,
+          overflowX: 'clip', /* clip (not hidden) so overflow-y stays visible — hidden would turn this into a scroll container and clip the parallax */
         }}
       >
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>

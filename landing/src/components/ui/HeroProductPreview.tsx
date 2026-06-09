@@ -1,7 +1,13 @@
 'use client';
 
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Image from 'next/image';
+
+/** Native width the dashboard is designed at; it scales down to fit narrower viewports. */
+const DESIGN_W = 1120;
+
+/** useLayoutEffect on the client, useEffect on the server (avoids the SSR warning). */
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 /* ── mini sparkline ── */
 const Spark = ({ data, stroke = 'rgba(255,255,255,0.4)', w = 72, h = 26 }: { data: number[]; stroke?: string; w?: number; h?: number }) => {
@@ -210,8 +216,8 @@ function AdvisorBlock() {
               display: 'grid', gridTemplateColumns: '186px 1fr 70px 42px', alignItems: 'center', gap: 12,
               padding: '11px 0', borderTop: i ? '1px dashed var(--border)' : 'none',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 8, height: 8, borderRadius: 2, background: o.vendor, flexShrink: 0 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                <ModelLogo model={o.model} size={16} />
                 <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-0)', whiteSpace: 'nowrap' }}>{o.model}</span>
                 {o.current && <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', padding: '2px 6px', borderRadius: 3, background: 'var(--bg-2)', color: 'var(--text-3)', border: '1px solid var(--border)' }}>current</span>}
                 {o.rec && <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', padding: '2px 6px', borderRadius: 3, background: 'var(--accent-soft)', color: 'var(--accent)', border: '1px solid var(--accent-line)' }}>rec</span>}
@@ -232,6 +238,31 @@ function AdvisorBlock() {
   );
 }
 
+/* Maps a model name to its vendor logo (falls back to a neutral chip). */
+const MODEL_LOGOS: { match: RegExp; src: string; alt: string }[] = [
+  { match: /gpt|text-embed|embed|davinci|openai/i, src: '/logos/openai.svg',  alt: 'OpenAI'  },
+  { match: /claude|anthropic/i,                    src: '/logos/claude.svg',  alt: 'Anthropic Claude' },
+  { match: /gemini|palm|google/i,                  src: '/logos/gemini.svg',  alt: 'Google Gemini' },
+  { match: /mistral|mixtral/i,                      src: '/logos/mistral.svg', alt: 'Mistral' },
+];
+
+function ModelLogo({ model, size = 18 }: { model: string; size?: number }) {
+  const hit = MODEL_LOGOS.find(l => l.match.test(model));
+  if (!hit) {
+    return <span style={{ width: size, height: size, borderRadius: 3, background: 'var(--bg-3)', flexShrink: 0, display: 'inline-block' }} />;
+  }
+  return (
+    <Image
+      src={hit.src}
+      alt={hit.alt}
+      width={size}
+      height={size}
+      unoptimized
+      style={{ flexShrink: 0, objectFit: 'contain' }}
+    />
+  );
+}
+
 function UsagePage() {
   return (
     <>
@@ -242,8 +273,8 @@ function UsagePage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {USAGE_MODELS.map(m => (
               <div key={m.model} style={{ display: 'grid', gridTemplateColumns: '150px 1fr 64px', alignItems: 'center', gap: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                  <span style={{ width: 8, height: 8, borderRadius: 2, background: m.vendor, flexShrink: 0 }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 9, minWidth: 0 }}>
+                  <ModelLogo model={m.model} size={18} />
                   <span style={{ fontSize: 12, color: 'var(--text-0)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.model}</span>
                   <span style={{ fontFamily: mono, fontSize: 10, color: 'var(--text-3)', marginLeft: 'auto' }}>{m.tokens}</span>
                 </div>
@@ -284,7 +315,10 @@ function UsagePage() {
         {USAGE_FEATURES.map((f, i) => (
           <div key={f.tag} style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.2fr 0.8fr 0.8fr 0.9fr 0.7fr', gap: 12, alignItems: 'center', padding: '11px 0', borderTop: i ? '1px dashed var(--border)' : 'none', fontSize: 12 }}>
             <span style={{ fontFamily: mono, color: 'var(--text-0)' }}>{f.tag}</span>
-            <span style={{ color: 'var(--text-2)' }}>{f.model}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, color: 'var(--text-2)', minWidth: 0 }}>
+              <ModelLogo model={f.model} size={14} />
+              <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{f.model}</span>
+            </span>
             <span style={{ fontFamily: mono, textAlign: 'right', color: 'var(--text-2)' }}>{f.calls}</span>
             <span style={{ fontFamily: mono, textAlign: 'right', color: 'var(--text-2)' }}>{f.tokens}</span>
             <span style={{ fontFamily: mono, textAlign: 'right', color: 'var(--text-0)', fontWeight: 500 }}>{f.cost}</span>
@@ -397,7 +431,22 @@ export const HeroProductPreview = forwardRef<HTMLDivElement>((_, ref) => {
   const [page, setPage] = useState<Page>('Overview');
   const PageBody = PAGES[page];
 
+  // Scale the fixed-width dashboard down to fit the available width (mobile/tablet).
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useIsoLayoutEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const measure = () => setScale(Math.min(1, el.clientWidth / DESIGN_W));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
+    <div ref={wrapRef} style={{ width: '100%' }}>
     <div
       ref={ref}
       style={{
@@ -406,7 +455,8 @@ export const HeroProductPreview = forwardRef<HTMLDivElement>((_, ref) => {
         borderRadius: 10,
         overflow: 'hidden',
         boxShadow: '0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,229,153,0.08)',
-        width: '100%', maxWidth: 1120, margin: '0 auto',
+        width: DESIGN_W, margin: '0 auto',
+        zoom: scale,
         fontFamily: 'var(--font-sans, sans-serif)',
       }}
     >
@@ -516,6 +566,7 @@ export const HeroProductPreview = forwardRef<HTMLDivElement>((_, ref) => {
       </div>
 
       <style>{`@keyframes gy-page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+    </div>
     </div>
   );
 });
